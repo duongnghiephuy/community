@@ -1,0 +1,34 @@
+{% extends "community/base.html" %}
+{% load static%}
+
+{% block customstyle%}
+
+<link rel="stylesheet" href="{% static 'polls/base_style.css' %}">
+<script src="{% static 'polls/trivial.js' %}" defer></script>
+{% endblock customstyle %}
+
+
+
+{% block title %}Vote of the month{% endblock %}
+{% block content%}
+<div class="vote-page">
+    <section class="vote-page-content">
+        {% block votepagecontent %}
+
+        {% endblock votepagecontent%}
+
+    </section>
+
+    <aside class="vote-side">
+        <h3>In Vote of the month</h4>
+            <ul>
+                <li> <a class="nav-item" href="{% url 'polls:question-list-view'%}"> Live Questions </a></li>
+                <li> <a class="nav-item" href="{% url 'polls:result-list-view'%}"> Closed Question Results </a></li>
+
+            </ul>
+    </aside>
+    <div class="vote-extra">
+        <h3> Most popular vote</h3>
+    </div>
+</div>
+{% endblock content %}

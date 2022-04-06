@@ -1,0 +1,46 @@
+{% extends "polls/base.html" %}
+{% load static%}
+
+{% block customstyle%}
+
+{{block.super}}
+
+<link rel="stylesheet" href="{% static 'polls/question_detail_modal_style.css' %}">
+{% endblock customstyle %}
+
+{% block title %}Vote Question{% endblock %}
+
+
+{% block votepagecontent %}
+<section class="live-question" x-data="{'isModalOpen':false}" x-on:keydown.escape="isModalOpen=false" x-cloak>
+    <h2>
+        Live Question
+    </h2>
+
+    <form hx-post="{% url 'polls:votemodal' question.id %}" hx-target=".modal-target" hw-swap="outerHTML">
+        {% csrf_token %}
+        <fieldset>
+            <legend>
+                <h3>
+                    {{question.question_text}}
+                </h3>
+            </legend>
+            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+            <ul class="votechoice">
+                {% for choice in question.choice_set.all %}
+                <li>
+                    <input type="radio" name="choice" id="choice{{forloop.counter}}" value="{{choice.id}}" required>
+                    <label for="choice{{forloop.counter}}">{{choice.choice_text}}</label><br>
+                </li>
+                {% endfor %}
+            </ul>
+        </fieldset>
+        <button x-on:click="isModalOpen = true" x-transition value="Vote"
+            class="generic-button green-button">Vote</button>
+    </form>
+    <div class="modal-target"> </div>
+
+</section>
+
+
+{% endblock votepagecontent%}

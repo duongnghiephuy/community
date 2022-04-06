@@ -1,0 +1,40 @@
+a.nav-item {
+    text-decoration: none;
+    border-radius: 5%;
+    text-transform: uppercase;
+}
+
+a.nav-item:hover {
+    opacity: 50%;
+}
+
+.bubble-item {
+    padding: 0.5rem;
+    border-radius: 8px;
+    margin: 1rem;
+    background-color: #FAFAFA;
+    cursor: pointer;
+    box-shadow: 0px 8px 16px transparent;
+
+}
+
+.bubble-item:hover {
+    box-shadow: 0px 8px 16px rgb(24 26 32 / 16%);
+}
+
+aside ul {
+    list-style: url("images/link_image.svg");
+
+}
+
+button.generic-button {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    text-align: center;
+    text-decoration: none;
+    transition-duration: 0.4s;
+    color: black;
+
+}

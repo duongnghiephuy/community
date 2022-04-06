@@ -1,0 +1,32 @@
+<div class="overlay modal-target" x-show="isModalOpen" hx-target="this" hx-swap="outerHTML" x-transition x-cloak>
+
+    <form hx-post="{% url 'polls:votemodal' question.id %}" tabindex="-1" x-show="isModalOpen"
+        x-on:click.away="isModalOpen=false" x-transition class="modal" x-cloak>
+        <span @click="isModalOpen = false" x-transition class="close">&times;</span>
+        {% csrf_token %}
+
+        <fieldset>
+            <legend>
+                <h3>
+                    {{question.question_text}}
+                </h3>
+            </legend>
+
+            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+            <ul class="votechoice">
+
+
+                {% for choice in question.choice_set.all %}
+                <li>
+                    <input type="radio" name="choice" id="choice{{forloop.counter}}" value="{{choice.id}}" required>
+                    <label for="choice{{forloop.counter}}">{{choice.choice_text}}</label>
+
+                </li>
+
+                {% endfor %}
+            </ul>
+        </fieldset>
+        <button class="generic-button green-button" value="Vote">Vote</button>
+    </form>
+
+</div>

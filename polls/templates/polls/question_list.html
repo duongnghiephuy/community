@@ -1,0 +1,52 @@
+{% extends "polls/base.html" %}
+
+{% load static%}
+
+{% block customstyle%}
+{{block.super}}
+<link rel="stylesheet" href="{% static 'polls/question_list_style.css' %}">
+
+<link rel="stylesheet" href="{% static 'polls/question_detail_modal_style.css' %}">
+{% endblock customstyle %}
+
+{% block title %}Vote Questions{% endblock %}
+
+
+{% block votepagecontent %}
+<section class="live-questions" x-data="{'isModalOpen':false}" x-on:keydown.escape="isModalOpen=false">
+    <h2>
+        Live Questions
+    </h2>
+    <ul class="question-list">
+
+        {% for question in question_list %}
+        <li class="bubble-item live-question" hx-get="{% url 'polls:question-detail-modal' pk=question.id %}"
+            hx-trigger="click" hx-target=".modal-target" hx-swap="outerHTML" x-on:click="isModalOpen = true"
+            x-transition>
+            <p>{{ question.question_text }} </p>
+            <p>{{ question.pub_date}}</p>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">❮previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next❯</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+    <div class="modal-target"></div>
+</section>
+{% endblock votepagecontent%}

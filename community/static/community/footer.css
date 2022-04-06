@@ -1,0 +1,8 @@
+body>footer {
+    background: black;
+    color: white;
+    padding: 1% 5%;
+    text-align: center;
+    position: sticky;
+    top: 100vh;
+}

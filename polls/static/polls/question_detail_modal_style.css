@@ -1,0 +1,92 @@
+.modal {
+
+    z-index: 10;
+    background-color: white;
+    grid-area: modal;
+    padding: 5%;
+    border-radius: 4px;
+    width: 70%;
+    height: 55%;
+    position: fixed;
+    left: 10%;
+    top: 15%;
+    overflow: auto;
+}
+
+
+.overlay {
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: black;
+    opacity: 1;
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-areas:
+        ". . ."
+        ". modal ."
+        ". modal ."
+        ". modal ."
+        ". . ."
+    ;
+}
+
+
+ul.votechoice {
+    list-style: none;
+
+}
+
+ul.votechoice li {
+    display: flex;
+    align-items: center;
+}
+
+ul.votechoice li label {
+    font-size: 2rem;
+}
+
+input[type="radio"] {
+    width: 1rem;
+    height: 1rem;
+    accent-color: green;
+    vertical-align: middle;
+
+}
+
+button.green-button {
+    background-color: white;
+    margin-top: 2rem;
+    font-size: 1rem;
+    border: #4CAF50 0.15rem solid;
+}
+
+button.green-button:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+
+.close {
+    color: rgb(95, 91, 91);
+    float: right;
+    font-size: 2.5rem;
+    font-weight: bold;
+    position: fixed;
+    top: 15%;
+    right: 10%;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

@@ -1,0 +1,13 @@
+<div class="overlay modal-target" x-show="isModalOpen" hx-target="this" hx-swap="outerHTML" x-transition x-cloak>
+
+    <div x-show="isModalOpen" x-on:click.away="isModalOpen=false" x-transition class="modal" tabindex="-1" x-cloak>
+        <span @click="isModalOpen = false" x-transition class="close">&times;</span>
+
+        <h3>
+            {{question.question_text}}
+        </h3>
+        {{ result_plot|safe }}
+        <button class="generic-button green-button" hx-get="{% url 'polls:question-detail-modal' pk=question.id %}"
+            hx-trigger="click">Vote again?</button>
+    </div>
+</div>

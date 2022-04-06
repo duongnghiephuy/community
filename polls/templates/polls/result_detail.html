@@ -1,0 +1,28 @@
+{% extends "polls/base.html" %}
+{% load static%}
+
+{% block customstyle%}
+
+{{block.super}}
+
+{% endblock customstyle %}
+
+{% block title %}Vote Question{% endblock %}
+
+
+{% block votepagecontent %}
+<section class="live-result">
+    <h2>
+        Live Result
+    </h2>
+    <h3>
+        {{question.question_text}}
+    </h3>
+    {{ result_plot|safe }}
+
+
+</section>
+
+
+
+{% endblock votepagecontent%}

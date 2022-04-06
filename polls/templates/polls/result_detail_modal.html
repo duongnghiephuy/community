@@ -1,0 +1,12 @@
+<div class="overlay modal-target" x-show="isModalOpen" x-transition x-cloak>
+    <div x-show="isModalOpen" x-on:click.away="isModalOpen=false" x-transition class="modal" tabindex="-1" x-cloak>
+        <span @click="isModalOpen = false" x-transition class="close">&times;</span>
+
+        <h3>
+            {{question.question_text}}
+        </h3>
+        {{ result_plot|safe }}
+        <button onclick="urlclipboard()" class="generic-button green-button">Copy shared URL</button>
+        <span class="share-url">{{share_url}}</span>
+    </div>
+</div>
