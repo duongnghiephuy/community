@@ -1,0 +1,43 @@
+{% extends "registration/base.html" %}
+{% load static%}
+
+
+
+{% block content %}
+
+
+<form method="post" action="{% url 'accounts:login' %}">
+    <h2> Welcome to Community<h2>
+            <h3>To build a strong community</h3>
+            <h3>We enable grocery shopping and sharing at wholesale discount for your neighborhood</h3>
+
+            {% csrf_token %}
+
+            {% if form.errors %}
+            <p>Your username and password didn't match. Please try again.</p>
+            {% endif %}
+
+            {% if next %}
+            {% if user.is_authenticated %}
+            <p>Your account doesn't have access to this page. To proceed,
+                please login with an account that has access.</p>
+            {% else %}
+            <p>Please login to see this page.</p>
+            {% endif %}
+            {% endif %}
+
+            {{ form.username.label_tag }}
+            <p>{{ form.username }}</p>
+
+            {{ form.password.label_tag }}
+            <p>{{ form.password }}</p>
+
+            <button value="login">login</button>
+            <input type="hidden" name="next" value="{{ next }}" />
+            <p class="message">Not registered? <a href="#">Create an account</a></p>
+            <p class="message"><a href="#">Forget password?</a></p>
+</form>
+
+
+
+{% endblock content %}
