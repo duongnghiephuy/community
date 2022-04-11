@@ -16,7 +16,7 @@ from django.views import View
 from django.urls import reverse
 from django.utils import timezone
 from polls.result_graph import result_graph
-from .models import Question, Choice
+from .models import Question, Choice, Vote
 from .result_graph import result_graph
 
 # Create your views here.
@@ -119,8 +119,9 @@ def votemodal(request, question_id):
             {"question": question, "error_message": "You didn't select a choice"},
         )
     else:
-        selected_choice.votes += 1
-        selected_choice.save()
+        Vote.objects.create(
+            user=request.user, question=question, choice=selected_choice
+        )
         result_plot = result_graph(question)
         return render(
             request,
