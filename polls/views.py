@@ -2,6 +2,7 @@ import datetime
 from http.client import HTTPResponse
 from pyexpat import model
 from re import template
+from tokenize import group
 from django.shortcuts import render
 from django.http import (
     Http404,
@@ -15,6 +16,7 @@ from django.views.generic import TemplateView, ListView, DetailView
 from django.views import View
 from django.urls import reverse
 from django.utils import timezone
+from requests import request
 from polls.result_graph import result_graph
 from .models import Question, Choice, Vote
 from .result_graph import result_graph
@@ -25,7 +27,9 @@ class IndexView(TemplateView):
 
     def get_recent_live_questions(self):
         recent_live_questions = Question.objects.filter(
-            pub_date__lte=timezone.now(), closed=False
+            pub_date__lte=timezone.now(),
+            closed=False,
+            group__in=request.user.groups.all(),
         ).order_by("-pub_date")
         if recent_live_questions.count() >= 5:
             recent_live_questions = recent_live_questions[:5]
@@ -33,7 +37,9 @@ class IndexView(TemplateView):
 
     def get_recent_closed_questions(self):
         recent_closed_questions = Question.objects.filter(
-            pub_date__lte=timezone.now(), closed=True
+            pub_date__lte=timezone.now(),
+            closed=True,
+            group__in=request.user.groups.all(),
         ).order_by("-pub_date")
         if recent_closed_questions.count() >= 5:
             recent_closed_questions = recent_closed_questions[:5]
@@ -52,14 +58,18 @@ class IndexView(TemplateView):
 class QuestionListView(ListView):
     context_object_name = "question_list"
     paginate_by = 5
-    queryset = Question.objects.filter(closed=False).order_by("-pub_date")
+    queryset = Question.objects.filter(
+        closed=False, group__in=request.user.groups.all()
+    ).order_by("-pub_date")
     template_name = "polls/question_list.html"
 
 
 class ResultListView(ListView):
     paginate_by = 5
     context_object_name = "question_list"
-    queryset = Question.objects.filter(closed=True).order_by("-pub_date")
+    queryset = Question.objects.filter(
+        closed=True, group__in=request.user.groups.all()
+    ).order_by("-pub_date")
     template_name = "polls/result_list.html"
 
 
@@ -119,12 +129,33 @@ def votemodal(request, question_id):
             {"question": question, "error_message": "You didn't select a choice"},
         )
     else:
-        Vote.objects.create(
-            user=request.user, question=question, choice=selected_choice
-        )
-        result_plot = result_graph(question)
-        return render(
-            request,
-            "polls/live_result_modal.html",
-            {"question": question, "result_plot": result_plot},
-        )
+
+        if question.is_voter(request.user):
+            try:
+                existing_vote = Vote.objects.get(question=question, user=request.user)
+                existing_vote.delete()
+                error_message = "You changed your vote"
+
+            except Vote.DoesNotExist:
+                error_message = None
+
+            Vote.objects.create(
+                user=request.user, question=question, choice=selected_choice
+            )
+
+            result_plot = result_graph(question)
+            return render(
+                request,
+                "polls/live_result_modal.html",
+                {
+                    "question": question,
+                    "result_plot": result_plot,
+                    "error_message": error_message,
+                },
+            )
+        else:
+            return render(
+                request,
+                "polls/question_detail_modal.html",
+                {"question": question, "error_message": "You are not a voter"},
+            )

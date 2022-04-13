@@ -1,19 +1,17 @@
-from pyexpat import model
 from django.db import models
 from django.contrib.auth.models import User, Group
-from django.contrib.auth.mixins import PermissionRequiredMixin
-from rules.contrib.models import RulesModel
+
 
 # Create your models here.
 
 
-class Question(RulesModel):
+class Question(models.Model):
 
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField("date publised")
     closed = models.BooleanField(default=False)
-    user = models.OneToOneField(User, on_delete=models.SET_NULL)
-    group = models.OneToOneField(Group, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.SET_NULL)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
 
     def get_result_dict(self):
         result = dict()
@@ -24,8 +22,18 @@ class Question(RulesModel):
     def __str__(self):
         return self.question_text
 
+    def is_author(self, user):
+        if user == self.author:
+            return True
+        return False
 
-class Choice(RulesModel):
+    def is_voter(self, user):
+        if self.is_author() or user.groups.filter(name=self.group).exists():
+            return True
+        return False
+
+
+class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
 
@@ -36,7 +44,7 @@ class Choice(RulesModel):
         return self.choice_text
 
 
-class Vote(RulesModel):
+class Vote(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
