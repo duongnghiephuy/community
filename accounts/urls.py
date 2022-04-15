@@ -17,4 +17,5 @@ urlpatterns = [
         auth_views.LogoutView.as_view(),
         name="logout",
     ),
+    path("signup/", views.Signup.as_view(), name="signup"),
 ]

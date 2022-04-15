@@ -1,8 +1,6 @@
 import datetime
-from http.client import HTTPResponse
-from pyexpat import model
-from re import template
-from tokenize import group
+
+
 from django.shortcuts import render
 from django.http import (
     Http404,
@@ -16,7 +14,6 @@ from django.views.generic import TemplateView, ListView, DetailView
 from django.views import View
 from django.urls import reverse
 from django.utils import timezone
-from requests import request
 from polls.result_graph import result_graph
 from .models import Question, Choice, Vote
 from .result_graph import result_graph
@@ -25,7 +22,7 @@ from .result_graph import result_graph
 class IndexView(TemplateView):
     template_name = "polls/index.html"
 
-    def get_recent_live_questions(self):
+    def get_recent_live_questions(self, request):
         recent_live_questions = Question.objects.filter(
             pub_date__lte=timezone.now(),
             closed=False,
@@ -35,7 +32,7 @@ class IndexView(TemplateView):
             recent_live_questions = recent_live_questions[:5]
         return recent_live_questions
 
-    def get_recent_closed_questions(self):
+    def get_recent_closed_questions(self, request):
         recent_closed_questions = Question.objects.filter(
             pub_date__lte=timezone.now(),
             closed=True,
@@ -46,8 +43,8 @@ class IndexView(TemplateView):
         return recent_closed_questions
 
     def get(self, request):
-        recent_live_questions = self.get_recent_live_questions()
-        recent_closed_questions = self.get_recent_closed_questions()
+        recent_live_questions = self.get_recent_live_questions(request)
+        recent_closed_questions = self.get_recent_closed_questions(request)
         context = {
             "recent_live_questions": recent_live_questions,
             "recent_closed_questions": recent_closed_questions,
@@ -58,19 +55,23 @@ class IndexView(TemplateView):
 class QuestionListView(ListView):
     context_object_name = "question_list"
     paginate_by = 5
-    queryset = Question.objects.filter(
-        closed=False, group__in=request.user.groups.all()
-    ).order_by("-pub_date")
     template_name = "polls/question_list.html"
+
+    def get_queryset(self):
+        return Question.objects.filter(
+            closed=False, group__in=self.request.user.groups.all()
+        ).order_by("-pub_date")
 
 
 class ResultListView(ListView):
     paginate_by = 5
     context_object_name = "question_list"
-    queryset = Question.objects.filter(
-        closed=True, group__in=request.user.groups.all()
-    ).order_by("-pub_date")
     template_name = "polls/result_list.html"
+
+    def get_queryset(self):
+        return Question.objects.filter(
+            closed=True, group__in=self.request.user.groups.all()
+        ).order_by("-pub_date")
 
 
 class QuestionDetailView(DetailView):

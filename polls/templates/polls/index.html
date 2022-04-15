@@ -22,6 +22,7 @@
         <h3>
             Recent Live Questions
         </h3>
+
         <ul class="question-list">
             {% for question in recent_live_questions %}
             <li class="bubble-item live-question" hx-get="{% url 'polls:question-detail-modal' pk=question.id %}"
@@ -32,7 +33,9 @@
             </li>
             {% endfor %}
         </ul>
+
     </section>
+
 
 
     <section class="recent-closed-questions">
@@ -49,6 +52,7 @@
             </li>
             {% endfor %}
         </ul>
+
 
     </section>
     <div class="modal-target"></div>

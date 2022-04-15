@@ -1,0 +1,32 @@
+{% extends "registration/base.html" %}
+{% load static%}
+
+
+
+{% block content %}
+
+<form method="post" action="{% url 'accounts:signup' %}">
+    <h2> Welcome to Community<h2>
+            <h3>To build a strong community</h3>
+            <h3>We enable grocery shopping and sharing at wholesale discount for your neighborhood</h3>
+
+            {% csrf_token %}
+
+            {% for field in form %}
+
+            <p>{{ field.label_tag }}</p>
+            <p>{{ field }}</p>
+
+            {% for error in field.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+            {% endfor %}
+
+            <button value="signup">Sign up</button>
+            <p class="message">Already have an account? <a href="{% url 'accounts:login'%}">Login</a></p>
+            <p class="message"><a href="#">Forget password?</a></p>
+</form>
+
+
+
+{% endblock content %}

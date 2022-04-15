@@ -10,8 +10,8 @@ class Question(models.Model):
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField("date publised")
     closed = models.BooleanField(default=False)
-    author = models.ForeignKey(User, on_delete=models.SET_NULL)
-    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, null=True)
 
     def get_result_dict(self):
         result = dict()
@@ -28,7 +28,7 @@ class Question(models.Model):
         return False
 
     def is_voter(self, user):
-        if self.is_author() or user.groups.filter(name=self.group).exists():
+        if self.is_author(user) or user.groups.filter(name=self.group).exists():
             return True
         return False
 
@@ -45,6 +45,6 @@ class Choice(models.Model):
 
 
 class Vote(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
