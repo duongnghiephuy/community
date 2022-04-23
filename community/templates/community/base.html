@@ -54,7 +54,7 @@
         <nav class="main-nav" x-show="open" @click.outside="close()" :id="$id('dropdown-button')" x-ref="panel">
             <ul class="left-nav">
                 <li><a class="nav-item" href="{% url 'index-view'%}">Homepage</a></li>
-                <li><a class="nav-item" href="{% url 'polls:index-view'%}">Offer</a></li>
+                <li><a class="nav-item" href="{% url 'posts:index-view'%}">Offer</a></li>
                 <li><a class="nav-item" href="{% url 'polls:index-view'%}">Schedule</a></li>
                 <li><a class="nav-item" href="{% url 'polls:index-view'%}">Vote of the month</a></li>
             </ul>

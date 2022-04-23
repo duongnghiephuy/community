@@ -1,0 +1,56 @@
+:root {
+    --large-image-width: 100vw;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+h2 {
+    text-align: center;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#slider {
+    width: var(--large-image-width);
+    height: auto;
+    overflow: hidden;
+}
+
+.slide {
+    width: var(--large-image-width);
+    height: auto;
+    float: left;
+    position: relative;
+}
+
+#slide-holder {
+
+    width: 200%;
+    position: relative;
+    left: 0;
+    will-change: transform;
+    animation: scroller 30s infinite;
+}
+
+
+
+@keyframes scroller {
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(calc(var(--large-image-width)*-1));
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}

@@ -1,8 +1,29 @@
 {% extends "community/base.html" %}
 
+{% load static%}
+{% block customstyle%}
+<link rel="stylesheet" href="{% static 'community/index_style.css' %}">
+<script src="{% static 'community/js/index.js' %}" defer></script>
+{% endblock customstyle %}
+
 {% block title%}Community{% endblock %}
 {% block content%}
+
 <section class="community-overview">
-    Overview of Community
+    <h2>
+        A strong community can bring so much joy in life.
+    </h2>
+
+    <div id="slider">
+        <ul id="slide-holder">
+            <li class="slide"><img src="{% static 'community/images/wholesale_market1.jpg' %}" alt="Wholesale Market">
+
+            </li>
+            <li class="slide"><img src="{% static 'community/images/neighbor1.jpg' %}" alt="Neighbor sharing grocery">
+
+            </li>
+        </ul>
+    </div>
+
 </section>
 {% endblock content %}

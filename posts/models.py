@@ -1,8 +1,9 @@
+from telnetlib import STATUS
 from django.db import models
 from django.contrib.auth.models import User, Group
 
 
-class Post(models.model):
+class Post(models.Model):
     post_title = models.CharField(max_length=300)
     post_content = models.TextField()
     img_width = models.IntegerField()
@@ -21,7 +22,7 @@ class Post(models.model):
         return self.post_title
 
 
-class Order(models.model):
+class Order(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     participant = models.ForeignKey(User, on_delete=models.CASCADE)
     HOST = 1
@@ -30,4 +31,4 @@ class Order(models.model):
     role = models.IntegerField(choices=PARTICIPANT_ROLES)
 
     def __str__(self):
-        return self.post + self.participant + self.role
+        return str(self.post) + str(self.participant) + str(self.role)

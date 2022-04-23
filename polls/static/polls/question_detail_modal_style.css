@@ -58,16 +58,10 @@ input[type="radio"] {
 }
 
 button.green-button {
-    background-color: white;
     margin-top: 2rem;
     font-size: 1rem;
-    border: #4CAF50 0.15rem solid;
 }
 
-button.green-button:hover {
-    background-color: #4CAF50;
-    color: white;
-}
 
 [x-cloak] {
     display: none !important;

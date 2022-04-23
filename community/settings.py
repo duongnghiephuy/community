@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "community",
     "polls.apps.PollsConfig",
     "accounts.apps.AccountsConfig",
+    "posts.apps.PostsConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
