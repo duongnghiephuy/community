@@ -11,7 +11,7 @@ class Question(models.Model):
     pub_date = models.DateTimeField("date publised")
     closed = models.BooleanField(default=False)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    group = models.ForeignKey(Group, on_delete=models.CASCADE, null=True)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
 
     def get_result_dict(self):
         result = dict()

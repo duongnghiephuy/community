@@ -11,6 +11,8 @@ class Post(models.model):
         upload_to="postimages/", width_field="img_width", height_field="img_height"
     )
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    schedule_from = models.DateTimeField()
+    schedule_to = models.DateTimeField()
     participants = models.ManyToManyField(User, through="Order")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -34,14 +34,33 @@
 </head>
 
 <body>
-    <header>
+    <header x-on:resize.window="open=(window.innerWidth<600)?false:true" x-data="{
+            open:(window.innerWidth<600)?false:true,
+            toggle(){
+                this.open=this.open?this.close():true
+            },
+            close(){
+                if(window.innerWidth<600){
+                    this.open=false
+                }
+            }
+        }" x-id="['dropdown-button']" x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+        x-on:keydown.escape.prevent.stop="close()">
         <h1> Community </h1>
-        <nav class="main-nav">
-            <ul>
+        <button type="button" class="menu-icon" @click="toggle()" :aria-expanded="open"
+            :aria-controls="$id('dropdown-button')">
+            &#9776
+        </button>
+        <nav class="main-nav" x-show="open" @click.outside="close()" :id="$id('dropdown-button')" x-ref="panel">
+            <ul class="left-nav">
                 <li><a class="nav-item" href="{% url 'index-view'%}">Homepage</a></li>
                 <li><a class="nav-item" href="{% url 'polls:index-view'%}">Offer</a></li>
                 <li><a class="nav-item" href="{% url 'polls:index-view'%}">Schedule</a></li>
                 <li><a class="nav-item" href="{% url 'polls:index-view'%}">Vote of the month</a></li>
+            </ul>
+            <ul class="right-nav">
+                <li><a class="nav-item" href="{% url 'accounts:login'%}">Log In</a></li>
+                <li><a class="nav-item" href="{% url 'accounts:signup' %}">Register</a></li>
             </ul>
         </nav>
 
