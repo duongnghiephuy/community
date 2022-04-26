@@ -1,6 +1,6 @@
-from telnetlib import STATUS
 from django.db import models
 from django.contrib.auth.models import User, Group
+from django.utils import timezone
 
 
 class Post(models.Model):
@@ -22,6 +22,10 @@ class Post(models.Model):
     @property
     def host(self):
         return self.order_set.get(role=Order.HOST).participant
+
+    @property
+    def ispast(self):
+        return self.schedule_to < timezone.now()
 
     def __str__(self):
         return self.post_title

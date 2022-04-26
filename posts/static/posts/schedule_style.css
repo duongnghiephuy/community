@@ -1,0 +1,53 @@
+.schedule-list {
+    grid-area: content;
+}
+
+aside {
+    grid-area: aside;
+}
+
+.schedule {
+    display: grid;
+    grid-template-columns: 0.7fr 5fr;
+    grid-template-areas:
+        "aside content";
+}
+
+.schedule-item {
+    border: solid black 2px;
+    z-index: 3;
+    margin: 2rem 10%;
+    padding-left: 1.5rem;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+}
+
+img {
+    width: 50%;
+    max-width: 200px;
+    height: auto;
+}
+
+time {
+    color: rgb(7, 119, 40);
+    font-size: 1.5rem;
+}
+
+aside a {
+    color: black;
+    font-size: 1.5rem;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-shadow: 1px;
+    color: gray;
+    cursor: pointer;
+}

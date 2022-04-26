@@ -1,8 +1,10 @@
 from email.policy import HTTP
+from pyexpat import model
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, ListView
+from requests import request
 from urllib3 import HTTPResponse
 from .forms import PostForm
 from .models import Order, Post
@@ -78,3 +80,34 @@ class AsynUpdatePost(View):
             order__participant=request.user, order__role=Order.HOST
         ).latest("created_at")
         return render(request, "posts/asynpost.html", {"post": post})
+
+
+class ScheduleList(ListView):
+    model = Post
+    template_name = "posts/schedule.html"
+    paginate_by = 5
+
+    def get_queryset(self):
+        return Post.objects.filter(order__participant=self.request.user)
+
+
+class HostList(ListView):
+    model = Post
+    template_name = "posts/schedule_content.html"
+    paginate_by = 5
+
+    def get_queryset(self):
+        return Post.objects.filter(
+            order__participant=self.request.user, order__role=Order.HOST
+        )
+
+
+class ShareList(ListView):
+    model = Post
+    template_name = "posts/schedule_content.html"
+    paginate_by = 5
+
+    def get_queryset(self):
+        return Post.objects.filter(
+            order__participant=self.request.user, order__role=Order.SHARER
+        )

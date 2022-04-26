@@ -1,0 +1,25 @@
+<section class="schedule-list">
+    {% for post in post_list %}
+    <div class="schedule-item" id="post{{post.id}}">
+        <strong><time>{{post.schedule_from}} - {{post.schedule_to}}</time></strong>
+        <p>{{post.post_title}}</p>
+        <p>{{post.post_content}}</p>
+        <img src="{{post.post_image.url}}" alt="Image for todo list"><br>
+        {% if not post.ispast %}
+        {% if request.user == post.host %}
+        <button type="button" class="red-button host" hx-get="{% url 'posts:deletepost' post.id %}" hx-swap="delete"
+            hx-target="#post{{post.id}}">Unhost</button>
+        {% else %}
+        {% if request.user in post.participants.all %}
+        <button type="button" class="generic-button participated" hx-get="{% url 'posts:updateorder' post.id %}"
+            hx-swap="outerHTML" value="unparticipate">Participated</button>
+        {% else %}
+        <button type="button" class="blue-button" value="participate" hx-get="{% url 'posts:updateorder' post.id %}"
+            hx-swap="outerHTML">Participate</button>
+        {% endif %}
+        {% endif %}
+        {% endif %}
+    </div>
+    {% endfor %}
+    {% include "posts/pagination.html" %}
+</section>

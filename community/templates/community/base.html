@@ -55,13 +55,14 @@
             <ul class="left-nav">
                 <li><a class="nav-item" href="{% url 'index-view'%}">Homepage</a></li>
                 <li><a class="nav-item" href="{% url 'posts:postlist-view'%}">Offer</a></li>
-                <li><a class="nav-item" href="{% url 'polls:index-view'%}">Schedule</a></li>
+                <li><a class="nav-item" href="{% url 'posts:schedule'%}">Schedule</a></li>
                 <li><a class="nav-item" href="{% url 'polls:index-view'%}">Vote of the month</a></li>
             </ul>
 
             <ul class="right-nav">
                 {%if request.user.is_authenticated%}
                 <li><a class="nav-item" href="#">Profile</a></li>
+                <li><a class="nav-item" href="{% url 'accounts:logout' %}">Sign out</a></li>
                 {% else %}
                 <li><a class="nav-item" href="{% url 'accounts:login'%}">Log In</a></li>
                 <li><a class="nav-item" href="{% url 'accounts:signup' %}">Register</a></li>

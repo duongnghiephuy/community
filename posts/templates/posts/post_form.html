@@ -1,6 +1,6 @@
 {% load static%}
-<form class="modal" hx-post="{% url 'posts:newpost' %}" hx-swap="outerHTML" hx-encoding='multipart/form-data'
-    @click.outside="modalopen=false">
+<form class="modal" hx-post="{% url 'posts:newpost' %}" hx-swap="outerHTML" tabindex="-1"
+    hx-encoding='multipart/form-data' @click.outside="modalopen=false">
 
     <h2>New Post</h2>
     {% if permissionerror %}
