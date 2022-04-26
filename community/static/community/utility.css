@@ -28,7 +28,9 @@ aside ul {
 }
 
 button.generic-button,
-button.green-button {
+button.green-button,
+button.red-button,
+button.blue-button {
     padding-left: 1rem;
     padding-right: 1rem;
     padding-top: 0.5rem;
@@ -37,12 +39,13 @@ button.green-button {
     text-decoration: none;
     transition-duration: 0.4s;
     color: black;
+    border: 1.5px solid;
 
 }
 
 button.green-button {
     background-color: white;
-    border: #4CAF50 0.15rem solid;
+    border-color: #4CAF50;
 }
 
 button.green-button:hover {
@@ -52,17 +55,15 @@ button.green-button:hover {
 
 button.blue-button {
     background-color: white;
-    border: #3699b8d5 0.15rem solid;
+    border-color: #3699b8d5;
 }
 
-button.blue-button:hover {
-    background-color: #3699b8d5;
+button.red-button:hover {
+    background-color: red;
     color: white;
 }
 
-form input {
-    padding: 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: vertical;
+button.red-button {
+    background-color: white;
+    border-color: red;
 }

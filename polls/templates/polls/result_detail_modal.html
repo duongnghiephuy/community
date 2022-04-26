@@ -1,6 +1,6 @@
 <div class="overlay modal-target" x-show="isModalOpen" x-transition x-cloak>
-    <div x-show="isModalOpen" x-on:click.away="isModalOpen=false" x-transition class="modal" tabindex="-1" x-cloak>
-        <span @click="isModalOpen = false" x-transition class="close">&times;</span>
+    <div x-on:click.away="isModalOpen=false" class="modal" tabindex="-1">
+        <span @click="isModalOpen = false" class="close">&times;</span>
 
         <h3>
             {{question.question_text}}

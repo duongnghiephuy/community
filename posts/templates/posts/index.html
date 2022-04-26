@@ -4,25 +4,55 @@
 
 {% block customstyle%}
 <link rel="stylesheet" href="{% static 'posts/index_style.css' %}">
-
+<script src="{% static 'posts/outmodal.js' %}" defer></script>
+<link rel="stylesheet" href="{% static 'posts/pagination.css' %}">
 {% endblock customstyle %}
 
 {% block title %}Offer{% endblock %}
 {% block content%}
-
-<form method="post" action="{% url 'posts:index-view'%}" enctype="multipart/form-data">
-    <h2>New Post</h2>
-    {% csrf_token %}
-    {% for field in form %}
-    <div class="field">
-        {{ field.label_tag }}
-        <div>{{ field }}</div>
-        {% for error in field.errors %}
-        <p>{{ error }}</p>
+<div class="post-page">
+    <section class="post-list" hx-get="{% url 'posts:asyncpost'%}" hx-swap="afterbegin" hx-trigger="outsideclick">
+        {% for post in post_list %}
+        <div class="post-item" id="post{{post.id}}">
+            <p><strong>{{post.group.name}}</strong></p>
+            <p><strong>{{post.post_title}}</strong></p>
+            <p>{{post.post_content}}</p>
+            <p>Grocery share from {{post.schedule_from}}</p>
+            <p>Grocery share to {{post.schedule_to}}</p>
+            <img src="{{post.post_image.url}}" alt="Image for post"><br>
+            {% if request.user == post.host %}
+            <button type="button" class="red-button host" hx-get="{% url 'posts:deletepost' post.id %}" hx-swap="delete"
+                hx-target="#post{{post.id}}">Unhost</button>
+            {% else %}
+            {% if request.user in post.participants.all %}
+            <button type="button" class="generic-button participated" hx-get="{% url 'posts:updateorder' post.id %}"
+                hx-swap="outerHTML" value="unparticipate">Participated</button>
+            {% else %}
+            <button type="button" class="blue-button" value="participate" hx-get="{% url 'posts:updateorder' post.id %}"
+                hx-swap="outerHTML">Participate</button>
+            {% endif %}
+            {% endif %}
+        </div>
         {% endfor %}
-    </div>
-    {% endfor %}
 
-    <button value="newpost" class="blue-button">New Post</button>
-</form>
+        {% include "posts/pagination.html" %}
+    </section>
+    <aside>
+        <div class="offer" x-data="{'modalopen':false}" x-cloak hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+
+            <button class="green-button" type="button" @click="modalopen=true">New
+                Post</button>
+            <div class="overlay" x-show="modalopen">
+                {% include "posts/post_form.html" %}
+            </div>
+
+        </div>
+        <p>Groups</p>
+        <ul>
+            {% for group in groups %}
+            <li>{{group.name}}</li>
+            {% endfor %}
+        </ul>
+    </aside>
+</div>
 {% endblock content %}

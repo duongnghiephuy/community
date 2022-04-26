@@ -1,4 +1,119 @@
+.post-page {
+    padding-top: 2rem;
+}
+
 button.blue-button {
-    margin-top: 2rem;
+    margin-top: 1rem;
     padding: 0.6rem;
+}
+
+.generic-button.participated {
+    background-color: #3699b8d5;
+    color: white;
+}
+
+[x-cloak] {
+    display: none;
+}
+
+.modal {
+    z-index: 5;
+    background-color: white;
+    grid-area: modal;
+    padding: 5%;
+    border-radius: 4px;
+    overflow: auto;
+
+}
+
+.overlay {
+    z-index: 2;
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 1;
+    display: grid;
+    grid-template-columns: 0.5fr 4fr 0.5fr;
+    grid-template-areas:
+        ". . ."
+        ". modal ."
+        ". modal ."
+        ". modal ."
+        ". . ."
+    ;
+}
+
+@media (min-width:600px) {
+    .overlay {
+        grid-template-columns: 1fr 4fr 1fr;
+    }
+}
+
+input,
+select {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 0.4rem;
+    margin-bottom: 0.4rem;
+    resize: vertical;
+}
+
+input[type=text],
+select,
+textarea {
+    width: 90%;
+}
+
+button.blue-button {
+    padding: 0.75rem 2rem;
+}
+
+img.success-gif {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    height: auto;
+}
+
+
+.post-item {
+    max-width: 600px;
+    margin: auto;
+    border: 0.5px solid black;
+    padding: 1.5rem;
+}
+
+.post-item img {
+    width: 100%;
+    height: auto;
+    overflow: auto;
+    touch-action: auto;
+    max-width: 600px;
+}
+
+
+section.post-list {
+    grid-area: content;
+}
+
+aside {
+    grid-area: aside;
+}
+
+.post-page {
+    display: grid;
+    grid-template-columns: 0.7fr 5fr;
+    grid-template-areas:
+        "aside content"
+    ;
+
+}
+
+.blue-button {
+    margin-top: 0.5rem;
 }

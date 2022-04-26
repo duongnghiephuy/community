@@ -1,0 +1,20 @@
+{% load static%}
+<form class="modal" hx-post="{% url 'posts:newpost' %}" hx-swap="outerHTML" hx-encoding='multipart/form-data'
+    @click.outside="modalopen=false">
+
+    <h2>New Post</h2>
+    {% if permissionerror %}
+    <p>{{permissionerror}}</p>
+    {% endif %}
+    {% for field in form %}
+    <div class="field">
+        {{ field.label_tag }}
+        <div>{{ field }}</div>
+        {% for error in field.errors %}
+        <p>{{ error }}</p>
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+    <button type="submit" value="newpost" class="blue-button">Post</button>
+</form>

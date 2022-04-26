@@ -9,7 +9,9 @@ app_name = "accounts"
 urlpatterns = [
     path(
         "login/",
-        auth_views.LoginView.as_view(authentication_form=CustomLoginForm),
+        auth_views.LoginView.as_view(
+            authentication_form=CustomLoginForm, redirect_authenticated_user=True
+        ),
         name="login",
     ),
     path(

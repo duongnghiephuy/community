@@ -4,6 +4,7 @@ from django.contrib.auth.models import User, Group
 
 
 class Post(models.Model):
+
     post_title = models.CharField(max_length=300)
     post_content = models.TextField()
     img_width = models.IntegerField()
@@ -18,6 +19,10 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    @property
+    def host(self):
+        return self.order_set.get(role=Order.HOST).participant
+
     def __str__(self):
         return self.post_title
 
@@ -31,4 +36,4 @@ class Order(models.Model):
     role = models.IntegerField(choices=PARTICIPANT_ROLES)
 
     def __str__(self):
-        return str(self.post) + str(self.participant) + str(self.role)
+        return f"Post {str(self.post)} with {str(self.participant)} and role {str(self.role)}"

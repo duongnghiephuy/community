@@ -1,0 +1,20 @@
+<div class="post-item" id="post{{post.id}}">
+    <p><strong>{{post.group.name}}</strong></p>
+    <p><strong>{{post.post_title}}</strong></p>
+    <p>{{post.post_content}}</p>
+    <p>From {{post.schedule_from}}</p>
+    <p>To {{post.schedule_to}}</p>
+    <img src="{{post.post_image.url}}" alt="Image for post"><br>
+    {% if request.user == post.host %}
+    <button type="button" class="red-button host" hx-get="{% url 'posts:deletepost' post.id %}" hx-swap="delete"
+        hx-target="#post{{post.id}}">Unhost</button>
+    {% else %}
+    {% if request.user in post.participants.all %}
+    <button type="button" class="generic-button participated" hx-get="{% url 'posts:updateorder' post.id %}"
+        hx-swap="outerHTML" value="unparticipate">Participated</button>
+    {% else %}
+    <button type="button" class="blue-button" value="participate" hx-get="{% url 'posts:updateorder' post.id %}"
+        hx-swap="outerHTML">Participate</button>
+    {% endif %}
+    {% endif %}
+</div>

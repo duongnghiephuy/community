@@ -1,0 +1,8 @@
+{% load static%}
+
+<div class="modal successmodal" @click.outside="modalopen=false" hx-get="{% url 'posts:newpost' %}"
+    hx-trigger="outsideclick" hx-swap="outerHTML">
+    <h2> Congrat, your post is on the board </h2>
+    <h3> We are happy to help you connect to your neighborhood</h3>
+    <img class="success-gif" src="{% static 'community/images/success.gif' %}" alt="Success">
+</div>
