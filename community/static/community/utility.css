@@ -58,6 +58,11 @@ button.blue-button {
     border-color: #3699b8d5;
 }
 
+button.blue-button:hover {
+    background-color: #3699b8d5;
+    color: white;
+}
+
 button.red-button:hover {
     background-color: red;
     color: white;

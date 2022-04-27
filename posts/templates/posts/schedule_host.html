@@ -1,0 +1,30 @@
+<section class="schedule-list">
+    {% include "posts/schedule_list.html" %}
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+        <button type="button" class="green-button" hx-get="{% url 'posts:todo' %}?page=1"
+            hx-target=".schedule-list">&laquo; first</button>
+        <button type="button" class="green-button"
+            hx-get="{% url 'posts:todo' %}?page={{ page_obj.previous_page_number }}"
+            hx-target=".schedule-list">❮previous</button>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+        <button type="button" class="green-button" hx-get="{% url 'posts:todo' %}?page={{ page_obj.next_page_number }}"
+            hx-target=".schedule-list">next❯</button>
+        <button type="button" class="green-button"
+            hx-get="{% url 'posts:todo' %}?page={{ page_obj.paginator.num_pages }}" hx-target=".schedule-list">last
+            &raquo;</button>
+        {% endif %}
+    </span>
+</section>
+
+
+
+<a id='host-link' hx-get="{% url 'posts:todo' %}?page={{page_obj.number}}" hx-trigger="click" hx-target=".schedule-list"
+    hx-swap-oob="true">To
+    Do</a>

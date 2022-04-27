@@ -93,8 +93,8 @@ class ScheduleList(ListView):
 
 class HostList(ListView):
     model = Post
-    template_name = "posts/schedule_content.html"
-    paginate_by = 5
+    template_name = "posts/schedule_host.html"
+    paginate_by = 1
 
     def get_queryset(self):
         return Post.objects.filter(
@@ -104,7 +104,7 @@ class HostList(ListView):
 
 class ShareList(ListView):
     model = Post
-    template_name = "posts/schedule_content.html"
+    template_name = "posts/schedule_share.html"
     paginate_by = 5
 
     def get_queryset(self):

@@ -51,3 +51,8 @@ a:hover {
     color: gray;
     cursor: pointer;
 }
+
+
+.step-links {
+    margin-left: 10%;
+}

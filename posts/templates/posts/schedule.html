@@ -10,38 +10,23 @@
 {% block content%}
 <div class="schedule">
     <section class="schedule-list">
-        {% for post in post_list %}
-        <div class="schedule-item" id="post{{post.id}}">
-            <strong><time>{{post.schedule_from}} - {{post.schedule_to}}</time></strong>
-            <p>{{post.post_title}}</p>
-            <p>{{post.post_content}}</p>
-            <img src="{{post.post_image.url}}" alt="Image for todo list"><br>
-            {% if not post.ispast %}
-            {% if request.user == post.host %}
-            <button type="button" class="red-button host" hx-get="{% url 'posts:deletepost' post.id %}" hx-swap="delete"
-                hx-target="#post{{post.id}}">Unhost</button>
-            {% else %}
-            {% if request.user in post.participants.all %}
-            <button type="button" class="generic-button participated" hx-get="{% url 'posts:updateorder' post.id %}"
-                hx-swap="outerHTML" value="unparticipate">Participated</button>
-            {% else %}
-            <button type="button" class="blue-button" value="participate" hx-get="{% url 'posts:updateorder' post.id %}"
-                hx-swap="outerHTML">Participate</button>
-            {% endif %}
-            {% endif %}
-            {% endif %}
-        </div>
-        {% endfor %}
-        {% include "posts/pagination.html" %}
+        <h2>
+            You can track your past and future schedule here
+        </h2>
+        <h3>
+            Alarm and check will be available soon
+        </h3>
     </section>
     <aside>
         <ul>
             <li>
-                <a hx-get="{% url 'posts:todo' %}" hx-trigger="click" hx-target=".schedule-list" hx-swap="outerHTML">To
+                <a id='host-link' hx-get="{% url 'posts:todo'  %}" hx-trigger="click" hx-target=".schedule-list"
+                    hx-swap="outerHTML">To
                     Do</a>
             </li>
             <li>
-                <a hx-get="{% url 'posts:toshare' %}" hx-trigger="click" hx-target=".schedule-list" hx-swap="outerHTML">
+                <a id='share-link' hx-get="{% url 'posts:toshare' %}" hx-trigger="click" hx-target=".schedule-list"
+                    hx-swap="outerHTML">
                     To
                     Share</a>
             </li>
