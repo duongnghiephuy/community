@@ -1,11 +1,8 @@
-from email.policy import HTTP
-from pyexpat import model
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, ListView
-from requests import request
-from urllib3 import HTTPResponse
+
 from .forms import PostForm
 from .models import Order, Post
 from django.utils import timezone
@@ -22,12 +19,12 @@ class NewPost(View):
 
         form = PostForm(request.user, request.POST, request.FILES)
         if form.is_valid():
-            group_id = int(request.POST.get("group", ""))
-            if not request.user.groups.filter(id=group_id).exists():
+            community_id = int(request.POST.get("community", ""))
+            if not request.user.community_set.filter(id=community_id).exists():
                 return render(
                     request,
                     "posts/post_form.html",
-                    {"form": form, "permissionerror": "You are not in the group"},
+                    {"form": form, "permissionerror": "You are not in the community"},
                 )
             new_post = form.save()
             Order.objects.create(
@@ -45,7 +42,7 @@ class PostListView(ListView):
 
     def get_queryset(self):
         return Post.objects.filter(
-            group__in=self.request.user.groups.all(),
+            community__in=self.request.user.community_set.all(),
             schedule_to__gte=timezone.now(),
         ).order_by("-updated_at")
 
@@ -53,7 +50,7 @@ class PostListView(ListView):
         context = super().get_context_data(**kwargs)
         form = PostForm(self.request.user)
         context["form"] = form
-        context["groups"] = self.request.user.groups.all()
+        context["communities"] = self.request.user.community_set.all()
         return context
 
 

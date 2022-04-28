@@ -61,8 +61,9 @@
 
             <ul class="right-nav">
                 {%if request.user.is_authenticated%}
+                <li><a class="nav-item" href="{% url 'accounts:community-view' %}">Communities</a></li>
                 <li><a class="nav-item" href="#">Profile</a></li>
-                <li><a class="nav-item" href="{% url 'accounts:logout' %}">Sign out</a></li>
+
                 {% else %}
                 <li><a class="nav-item" href="{% url 'accounts:login'%}">Log In</a></li>
                 <li><a class="nav-item" href="{% url 'accounts:signup' %}">Register</a></li>

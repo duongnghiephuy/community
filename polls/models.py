@@ -1,5 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User
+
+from accounts.models import Community
 
 
 # Create your models here.
@@ -11,7 +13,7 @@ class Question(models.Model):
     pub_date = models.DateTimeField("date publised")
     closed = models.BooleanField(default=False)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    community = models.ForeignKey(Community, on_delete=models.CASCADE)
 
     def get_result_dict(self):
         result = dict()
@@ -28,7 +30,10 @@ class Question(models.Model):
         return False
 
     def is_voter(self, user):
-        if self.is_author(user) or user.groups.filter(name=self.group).exists():
+        if (
+            self.is_author(user)
+            or user.community_set.filter(name=self.community).exists()
+        ):
             return True
         return False
 

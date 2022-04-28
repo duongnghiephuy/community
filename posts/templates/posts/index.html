@@ -14,7 +14,7 @@
     <section class="post-list" hx-get="{% url 'posts:asyncpost'%}" hx-swap="afterbegin" hx-trigger="outsideclick">
         {% for post in post_list %}
         <div class="post-item" id="post{{post.id}}">
-            <p><strong>{{post.group.name}}</strong></p>
+            <p><strong>{{post.community.name}}</strong></p>
             <p><strong>{{post.post_title}}</strong></p>
             <p>{{post.post_content}}</p>
             <p>Grocery Share from {{post.schedule_from}} to {{post.schedule_to}}</p>
@@ -46,10 +46,10 @@
             </div>
 
         </div>
-        <p>Groups</p>
+        <p>Communities</p>
         <ul>
-            {% for group in groups %}
-            <li>{{group.name}}</li>
+            {% for community in communities %}
+            <li>{{community.name}}</li>
             {% endfor %}
         </ul>
     </aside>

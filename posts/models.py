@@ -1,6 +1,8 @@
 from django.db import models
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User
 from django.utils import timezone
+
+from accounts.models import Community
 
 
 class Post(models.Model):
@@ -12,7 +14,7 @@ class Post(models.Model):
     post_image = models.ImageField(
         upload_to="postimages/", width_field="img_width", height_field="img_height"
     )
-    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    community = models.ForeignKey(Community, on_delete=models.CASCADE)
     schedule_from = models.DateTimeField()
     schedule_to = models.DateTimeField()
     participants = models.ManyToManyField(User, through="Order")

@@ -1,0 +1,18 @@
+{% load static%}
+<form class="modal" hx-post="{% url 'accounts:newcommunity' %}" hx-swap="outerHTML" tabindex="-1"
+    hx-encoding='multipart/form-data' @click.outside="modalopen=false">
+
+    <h2>New Community</h2>
+
+    {% for field in form %}
+    <div class="field">
+        {{ field.label_tag }}
+        <div>{{ field }}</div>
+        {% for error in field.errors %}
+        <p>{{ error }}</p>
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+    <button type="submit" value="newcommunity" class="blue-button">Create</button>
+</form>

@@ -1,0 +1,49 @@
+{% extends "community/base.html" %}
+
+{% load static%}
+
+{% block customstyle%}
+<link rel="stylesheet" href="{% static 'posts/index_style.css' %}">
+<script src="{% static 'posts/outmodal.js' %}" defer></script>
+<link rel="stylesheet" href="{% static 'posts/pagination.css' %}">
+{% endblock customstyle %}
+
+{% block title %}Communities{% endblock %}
+{% block content%}
+<div class="community-page">
+    <section class="community-list" hx-get="#" hx-swap="afterbegin" hx-trigger="outsideclick">
+        {% for community in community_list %}
+        <div class="community-item" id="community{{community.id}}">
+            <p><strong>Community {{community.name}}</strong></p>
+            <p><strong>Description: {{community.description}}</strong></p>
+            <p><strong>Location: {{community.location}}</strong></p>
+            {% if community.image %}
+            <img src="{{community.image.url}}" alt="Image for community"><br>
+            {%endif%}
+
+
+            {% if request.user in community.users.all %}
+            <button type="button" class="generic-button joined" hx-get="#" hx-swap="outerHTML"
+                value="unjoin">Joined</button>
+            {% else %}
+            <button type="button" class="blue-button" value="join" hx-get="#" hx-swap="outerHTML">Join</button>
+            {% endif %}
+
+        </div>
+        {% endfor %}
+
+        {% include "posts/pagination.html" %}
+    </section>
+    <aside>
+        <div class="offer" x-data="{'modalopen':false}" x-cloak hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+
+            <button class="green-button" type="button" @click="modalopen=true">Create
+            </button>
+            <div class="overlay" x-show="modalopen">
+                {% include "registration/new_community_form.html" %}
+            </div>
+
+        </div>
+    </aside>
+</div>
+{% endblock content %}

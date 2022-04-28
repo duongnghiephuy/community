@@ -14,7 +14,7 @@ class PostForm(ModelForm):
             "post_image",
             "schedule_from",
             "schedule_to",
-            "group",
+            "community",
         ]
         widgets = {
             "schedule_from": forms.DateTimeInput(attrs={"type": "datetime-local"}),
@@ -28,9 +28,7 @@ class PostForm(ModelForm):
 
     def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["group"] = forms.ModelChoiceField(
-            user.groups.all(), empty_label="Group"
-        )
+
         self.fields["post_content"].widget.attrs.update(
             {
                 "placeholder": "Content",

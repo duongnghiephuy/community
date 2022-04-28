@@ -23,6 +23,7 @@
             {% endfor %}
 
             <button value="signup">Sign up</button>
+            <input type="hidden" name="next" value="{{ next }}" />
             <p class="message">Already have an account? <a href="{% url 'accounts:login'%}">Login</a></p>
             <p class="message"><a href="#">Forget password?</a></p>
 </form>

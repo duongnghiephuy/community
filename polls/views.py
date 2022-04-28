@@ -26,7 +26,7 @@ class IndexView(TemplateView):
         recent_live_questions = Question.objects.filter(
             pub_date__lte=timezone.now(),
             closed=False,
-            group__in=request.user.groups.all(),
+            community__in=request.user.community_set.all(),
         ).order_by("-pub_date")
         if recent_live_questions.count() >= 5:
             recent_live_questions = recent_live_questions[:5]
@@ -36,7 +36,7 @@ class IndexView(TemplateView):
         recent_closed_questions = Question.objects.filter(
             pub_date__lte=timezone.now(),
             closed=True,
-            group__in=request.user.groups.all(),
+            community__in=request.user.community_set.all(),
         ).order_by("-pub_date")
         if recent_closed_questions.count() >= 5:
             recent_closed_questions = recent_closed_questions[:5]
@@ -59,7 +59,7 @@ class QuestionListView(ListView):
 
     def get_queryset(self):
         return Question.objects.filter(
-            closed=False, group__in=self.request.user.groups.all()
+            closed=False, community__in=self.request.user.community_set.all()
         ).order_by("-pub_date")
 
 
@@ -70,7 +70,7 @@ class ResultListView(ListView):
 
     def get_queryset(self):
         return Question.objects.filter(
-            closed=True, group__in=self.request.user.groups.all()
+            closed=True, community__in=self.request.user.community_set.all()
         ).order_by("-pub_date")
 
 
