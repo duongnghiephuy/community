@@ -1,4 +1,4 @@
-## In development: Grocery sharing app for neighborhood
+## In development: Grocery sharing website for neighborhood
 
 Libraries: HTMX, Alpine.js 
 
