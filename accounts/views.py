@@ -1,14 +1,12 @@
-from pyexpat import model
 from django.shortcuts import redirect, render
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
 from django.urls import reverse, reverse_lazy
 from django.views import View
-from django.views.generic import ListView
 from .forms import CommunityCreationForm
 from .models import Community, MemberRole
-from geopy.geocoders import Nominatim
 from django.contrib.gis.geos import Point
+from geopy.geocoders import Nominatim
 
 # Create your views here.
 
@@ -35,7 +33,6 @@ class Signup(View):
         return render(request, "registration/signup.html", {"form": form})
 
 
-# String to geo location
 def geocode_address(address):
     geolocator = Nominatim(user_agent="grocery_sharing")
     location = geolocator.geocode(address)
@@ -79,16 +76,3 @@ class CommunityCreate(View):
 
         form = CommunityCreationForm()
         return render(request, "registration/new_community_form.html", {"form": form})
-
-
-# View for communities page
-class CommunityView(ListView):
-    paginate_by = 5
-    model = Community
-    template_name = "registration/community.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        form = CommunityCreationForm()
-        context["form"] = form
-        return context

@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "polls.apps.PollsConfig",
     "accounts.apps.AccountsConfig",
     "posts.apps.PostsConfig",
+    "geocommunity.apps.GeocommunityConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

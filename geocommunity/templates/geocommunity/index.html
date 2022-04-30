@@ -1,0 +1,47 @@
+<!-- Communities Page or Page for communities search and create-->
+
+{% extends "community/base.html" %}
+
+{% load static%}
+
+{% block customstyle%}
+
+<script src="{% static 'posts/outmodal.js' %}" defer></script>
+<link rel="stylesheet" href="{% static 'geocommunity/index_style.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock customstyle %}
+
+{% block title %}Communities{% endblock %}
+{% block content%}
+<div class="community-page">
+
+
+    <div class="search">
+        <input type="text" class="searchTerm" placeholder="Search for communities in your neighborhood" autofocus>
+        <button type="button" class="searchButton">
+            <i class="fa fa-search"></i>
+
+        </button>
+
+        <label for="distance">Distance:</label>
+
+        <select name="distance" id="distance">
+            <option value="5">5km</option>
+            <option value="2" selected>2km</option>
+            <option value="1">1km</option>
+        </select>
+    </div>
+
+
+    <div class="offer" x-data="{'modalopen':false}" x-cloak hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+
+        <button class="green-button" type="button" @click="modalopen=true">Create
+        </button>
+        <div class="overlay" x-show="modalopen">
+            {% include "registration/new_community_form.html" %}
+        </div>
+
+    </div>
+
+</div>
+{% endblock content %}

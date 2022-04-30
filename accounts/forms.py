@@ -1,4 +1,3 @@
-from unittest.util import _MAX_LENGTH
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from .models import Community
