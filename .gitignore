@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.log
 *.pot
 *.pyc
@@ -8,3 +9,5 @@ venv
 .vscode
 © 2022 GitHub, Inc.
 Terms
+=======
+>>>>>>> test
