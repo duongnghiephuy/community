@@ -6,15 +6,12 @@
     <img src="{{post.post_image.url}}" alt="Image for todo list"><br>
     {% if not post.ispast %}
     {% if request.user == post.host %}
-    <button type="button" class="red-button host" hx-get="{% url 'posts:deletepost' post.id %}" hx-swap="delete"
-        hx-target="#post{{post.id}}">Unhost</button>
+    {% include "posts/unhost_button.html" %}
     {% else %}
     {% if request.user in post.participants.all %}
-    <button type="button" class="generic-button participated" hx-get="{% url 'posts:updateorder' post.id %}"
-        hx-swap="outerHTML" value="unparticipate">Participated</button>
+    {% include "posts/unparticipate.html"%}
     {% else %}
-    <button type="button" class="blue-button" value="participate" hx-get="{% url 'posts:updateorder' post.id %}"
-        hx-swap="outerHTML">Participate</button>
+    {% include "posts/participate.html" %}
     {% endif %}
     {% endif %}
     {% endif %}
