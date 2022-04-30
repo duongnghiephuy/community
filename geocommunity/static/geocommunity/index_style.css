@@ -106,4 +106,9 @@ textarea {
 
 select#distance {
     width: 15%;
+    margin-left: 2rem;
+}
+
+label.distance {
+    display: none;
 }
