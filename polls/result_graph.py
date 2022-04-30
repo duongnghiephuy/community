@@ -1,4 +1,5 @@
-from matplotlib.pyplot import title
+# Function to plot the result of vote and return graph object for use in template
+
 from plotly.offline import plot
 import plotly.graph_objs as go
 

@@ -3,6 +3,8 @@ from django.dispatch import receiver
 from django.db.models.signals import post_delete
 from .models import Post
 
+# This is to delete post_image in media folder after a post is deleted
+
 
 @receiver(post_delete, sender=Post)
 def delete_associated_files(sender, instance, **kwargs):

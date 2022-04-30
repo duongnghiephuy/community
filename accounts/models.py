@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.gis.db import models
 
 
+# One to one model for user profile
 class UserProfile(models.Model):
     email = models.EmailField(blank=True)
     fullname = models.CharField(max_length=100, blank=True)

@@ -35,6 +35,7 @@ class Signup(View):
         return render(request, "registration/signup.html", {"form": form})
 
 
+# String to geo location
 def geocode_address(address):
     geolocator = Nominatim(user_agent="grocery_sharing")
     location = geolocator.geocode(address)
@@ -80,6 +81,7 @@ class CommunityCreate(View):
         return render(request, "registration/new_community_form.html", {"form": form})
 
 
+# View for communities page
 class CommunityView(ListView):
     paginate_by = 5
     model = Community

@@ -6,6 +6,7 @@ from django.forms import ModelForm
 from django import forms
 
 
+# Subclass form to add class for CSS style
 class CustomLoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

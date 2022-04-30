@@ -1,3 +1,5 @@
+<!-- Form to create new community-->
+
 {% load static%}
 <form class="modal" hx-post="{% url 'accounts:newcommunity' %}" hx-swap="outerHTML" tabindex="-1"
     hx-encoding='multipart/form-data' @click.outside="modalopen=false">
