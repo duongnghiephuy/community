@@ -67,8 +67,12 @@ class UpdateOrder(View):
 
 class DeletePost(View):
     def delete(self, request, post_id):
-        Post.objects.filter(pk=post_id).delete()
-        return render(request, "posts/success.html")
+        post = get_object_or_404(Post, pk=post_id)
+        if request.user == post.host:
+            post.delete()
+            return render(request, "posts/success.html")
+        else:
+            return render(request, "community/invalid_request.html")
 
 
 class AsynUpdatePost(View):

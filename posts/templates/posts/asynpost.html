@@ -6,8 +6,7 @@
     <p>To {{post.schedule_to}}</p>
     <img src="{{post.post_image.url}}" alt="Image for post"><br>
     {% if request.user == post.host %}
-    <button type="button" class="red-button host" hx-get="{% url 'posts:deletepost' post.id %}" hx-swap="delete"
-        hx-target="#post{{post.id}}">Unhost</button>
+    {% include "posts/unhost_button.html" %}
     {% else %}
     {% if request.user in post.participants.all %}
     {% include "posts/participate.html"%}
