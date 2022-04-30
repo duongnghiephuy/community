@@ -66,7 +66,7 @@ class UpdateOrder(View):
 
 
 class DeletePost(View):
-    def get(self, request, post_id):
+    def delete(self, request, post_id):
         Post.objects.filter(pk=post_id).delete()
         return render(request, "posts/success.html")
 
