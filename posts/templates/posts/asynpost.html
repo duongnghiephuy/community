@@ -10,11 +10,9 @@
         hx-target="#post{{post.id}}">Unhost</button>
     {% else %}
     {% if request.user in post.participants.all %}
-    <button type="button" class="generic-button participated" hx-get="{% url 'posts:updateorder' post.id %}"
-        hx-swap="outerHTML" value="unparticipate">Participated</button>
+    {% include "posts/participate.html"%}
     {% else %}
-    <button type="button" class="blue-button" value="participate" hx-get="{% url 'posts:updateorder' post.id %}"
-        hx-swap="outerHTML">Participate</button>
+    {% include "posts/unparticipate.html" %}
     {% endif %}
     {% endif %}
 </div>

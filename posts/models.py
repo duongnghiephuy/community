@@ -8,8 +8,8 @@ class Post(models.Model):
 
     post_title = models.CharField(max_length=300)
     post_content = models.TextField()
-    img_width = models.IntegerField()
-    img_height = models.IntegerField()
+    img_width = models.IntegerField(blank=True)
+    img_height = models.IntegerField(blank=True)
     post_image = models.ImageField(
         upload_to="postimages/", width_field="img_width", height_field="img_height"
     )
