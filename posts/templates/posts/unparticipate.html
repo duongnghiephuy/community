@@ -1,2 +1,4 @@
+<!-- A simple button to unparticipate -->
+<!-- It swaps itself with the participate button -->
 <button type="button" class="generic-button participated" hx-get="{% url 'posts:updateorder' post.id %}"
     hx-swap="outerHTML" value="unparticipate">Unparticipate</button>

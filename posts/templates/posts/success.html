@@ -1,3 +1,5 @@
+<!-- A simple success div usually used in modal form submission -->
+<!-- It is attached to click outside event because we usually want new form to replace this success modal at that time -->
 {% load static%}
 
 <div class="modal successmodal" @click.outside="modalopen=false" hx-get="{% url 'posts:newpost' %}"

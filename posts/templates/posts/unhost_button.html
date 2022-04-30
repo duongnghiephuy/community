@@ -1,2 +1,4 @@
+<!-- A simple red button to unhost -->
+<!-- It also delete the post -->
 <button type="button" class="red-button host" hx-delete="{% url 'posts:deletepost' post.id %}" hx-swap="delete"
     hx-target="#post{{post.id}}">Unhost</button>

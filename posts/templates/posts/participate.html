@@ -1,2 +1,4 @@
+<!-- A simple button for user to participate in an offer -->
+<!-- It swaps itself with the unparticipate.html button-->
 <button type="button" class="blue-button" value="participate" hx-get="{% url 'posts:updateorder' post.id %}"
     hx-swap="outerHTML">Participate</button>

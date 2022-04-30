@@ -1,3 +1,5 @@
+<!-- The form for new post. It doens't have all the div because it's used with htmx and alpine for modal form -->
+
 {% load static%}
 <form class="modal" hx-post="{% url 'posts:newpost' %}" hx-swap="outerHTML" tabindex="-1"
     hx-encoding='multipart/form-data' @click.outside="modalopen=false">
