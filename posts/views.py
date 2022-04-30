@@ -65,7 +65,7 @@ class UpdateOrder(View):
         if request.user in post.participants.all():
             Order.objects.get(post=post, participant=request.user).delete()
             return render(request, "posts/participate.html", {"post": post})
-        elif post.community.filter(users=request.user):
+        elif post.community.users.filter(pk=request.user.pk):
             Order.objects.create(post=post, participant=request.user, role=Order.SHARER)
             return render(request, "posts/unparticipate.html", {"post": post})
         else:
