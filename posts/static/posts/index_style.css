@@ -7,6 +7,12 @@ button.blue-button {
     padding: 0.6rem;
 }
 
+button.red-button {
+    margin-top: 1rem;
+    padding: 0.6rem;
+}
+
+
 .generic-button.participated {
     background-color: #3699b8d5;
     color: white;
