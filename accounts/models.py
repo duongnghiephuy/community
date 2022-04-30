@@ -1,5 +1,5 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.gis.db import models
 
 
 class UserProfile(models.Model):
@@ -25,7 +25,7 @@ class UserProfile(models.Model):
 class Community(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(max_length=400)
-    location = models.TextField(max_length=400)
+    location = models.PointField(blank=True, null=True)
     img_width = models.IntegerField(null=True, blank=True)
     img_height = models.IntegerField(null=True, blank=True)
     image = models.ImageField(
@@ -35,7 +35,7 @@ class Community(models.Model):
         blank=True,
         null=True,
     )
-    users = models.ManyToManyField(User, through="MemberRole", null=True)
+    users = models.ManyToManyField(User, through="MemberRole")
 
     def __str__(self):
         return f"Community {self.name}"

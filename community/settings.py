@@ -1,5 +1,20 @@
 import os
 
+
+if os.name == "nt":
+
+    MY_GEO_DIR = r"C:\Users\Huy\AppData\Local\Programs\Python\Python310"
+    os.environ["PATH"] = (
+        os.path.join(MY_GEO_DIR, "Lib\\site-packages\\osgeo") + ";" + os.environ["PATH"]
+    )
+    os.environ["PROJ_LIB"] = (
+        os.path.join(MY_GEO_DIR, "Lib\\site-packages\\osgeo\\data\\proj")
+        + ";"
+        + os.environ["PATH"]
+    )
+
+SPATIALITE_LIBRARY_PATH = "mod_spatialite"
+
 """
 Django settings for community project.
 
@@ -46,6 +61,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_htmx",
+    "django.contrib.gis",
 ]
 
 MIDDLEWARE = [
@@ -85,7 +101,7 @@ WSGI_APPLICATION = "community.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
+        "ENGINE": "django.contrib.gis.db.backends.spatialite",
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }

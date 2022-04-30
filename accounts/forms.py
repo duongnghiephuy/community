@@ -1,6 +1,9 @@
+from unittest.util import _MAX_LENGTH
+from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from .models import Community
 from django.forms import ModelForm
+from django import forms
 
 
 class CustomLoginForm(AuthenticationForm):
@@ -15,16 +18,20 @@ class CustomLoginForm(AuthenticationForm):
 
 
 class CommunityCreationForm(ModelForm):
+
+    address = forms.CharField(
+        max_length=600, widget=forms.TextInput(attrs={"placeholder": "Address"})
+    )
+
     class Meta:
         model = Community
-        fields = ["name", "description", "location", "image"]
+        fields = ["name", "description", "image"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.fields["name"].widget.attrs.update({"placeholder": "Name"})
         self.fields["description"].widget.attrs.update({"placeholder": "Description"})
-        self.fields["location"].widget.attrs.update({"placeholder": "Location"})
 
         for visible in self.visible_fields():
             visible.field.widget.attrs.update(

@@ -3,7 +3,9 @@
     hx-encoding='multipart/form-data' @click.outside="modalopen=false">
 
     <h2>New Community</h2>
-
+    {% if error_message %}
+    {{error_message}}
+    {% endif %}
     {% for field in form %}
     <div class="field">
         {{ field.label_tag }}

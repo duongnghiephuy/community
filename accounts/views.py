@@ -7,6 +7,8 @@ from django.views import View
 from django.views.generic import ListView
 from .forms import CommunityCreationForm
 from .models import Community, MemberRole
+from geopy.geocoders import Nominatim
+from django.contrib.gis.geos import Point
 
 # Create your views here.
 
@@ -33,22 +35,44 @@ class Signup(View):
         return render(request, "registration/signup.html", {"form": form})
 
 
+def geocode_address(address):
+    geolocator = Nominatim(user_agent="grocery_sharing")
+    location = geolocator.geocode(address)
+    return location
+
+
 class CommunityCreate(View):
     def post(self, request):
-        form = CommunityCreationForm(request.POST)
-        if form.is_valid():
-            community = form.save()
-            MemberRole.objects.create(
-                user=request.user, community=community, role=MemberRole.ADMIN
-            )
 
-            return render("posts/success.html")
-        else:
-            return render(
-                request,
-                "registration/new_community_form.html",
-                {"form": form},
-            )
+        error_message = None
+        form = CommunityCreationForm(request.POST, request.FILES)
+        if form.is_valid():
+            address = form.cleaned_data["address"]
+            location = geocode_address(address)
+
+            if location:
+                name = form.cleaned_data["name"]
+                description = form.cleaned_data["description"]
+                image = form.cleaned_data["image"]
+                community_location = Point(location.longitude, location.latitude)
+                community = Community.objects.create(
+                    name=name,
+                    description=description,
+                    location=community_location,
+                    image=image,
+                )
+                MemberRole.objects.create(
+                    user=request.user, community=community, role=MemberRole.ADMIN
+                )
+
+                return render("posts/success.html")
+            else:
+                error_message = "String location is not in the database"
+        return render(
+            request,
+            "registration/new_community_form.html",
+            {"form": form, "error_message": error_message},
+        )
 
     def get(self, request):
 
