@@ -1,11 +1,8 @@
-from email import message
-from urllib import response
 from django.test import TestCase
 from django.contrib.auth.models import User
 from django.utils import timezone
 from accounts.models import Community
 from polls.models import Question, Choice
-from django.contrib.gis.geos import Point
 from django.urls import reverse
 from django.test import Client
 
@@ -25,22 +22,24 @@ class QuestionModelTests(TestCase):
             description="This is a community for test",
         )
 
-    def setUp(self):
-
-        # Create a live question
+        # Create a live question and choices
         question_text = "Test Question"
         pub_date = timezone.now()
-        self.question = Question.objects.create(
+        cls.question = Question.objects.create(
             question_text=question_text,
             pub_date=pub_date,
             closed=False,
-            author=self.user,
-            community=self.community,
+            author=cls.user,
+            community=cls.community,
         )
-        for choice_text in ["Choice 1", "Choice 2"]:
-            Choice.objects.create(question=self.question, choice_text=choice_text)
 
-        self.client = Client()
+        for choice_text in ["Choice 1", "Choice 2"]:
+            Choice.objects.create(question=cls.question, choice_text=choice_text)
+
+        cls.client = Client()
+
+    def setUp(self):
+        self.client.login(username="testuser", password="12345")
 
     def test_is_voter(self):
         self.assertIs(self.question.is_voter(self.user), True)
@@ -50,7 +49,6 @@ class QuestionModelTests(TestCase):
     def test_no_data_votemodal(self):
 
         # login required for all votemodal test
-        self.client.login(username="testuser", password="12345")
 
         response = self.client.post(
             reverse("polls:votemodal", kwargs={"question_id": self.question.id})
@@ -63,7 +61,6 @@ class QuestionModelTests(TestCase):
 
     # test vote with data
     def test_data_votemodal(self):
-        self.client.login(username="testuser", password="12345")
         response = self.client.post(
             reverse(
                 "polls:votemodal",
@@ -76,6 +73,7 @@ class QuestionModelTests(TestCase):
         self.assertEqual(response.context["error_message"], None)
 
         # test vote after changing choice
+
         response = self.client.post(
             reverse(
                 "polls:votemodal",

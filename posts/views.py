@@ -1,7 +1,8 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, DeleteView
+from urllib3 import HTTPResponse
 
 from .forms import PostForm
 from .models import Order, Post
@@ -56,19 +57,33 @@ class PostListView(ListView):
 
 class UpdateOrder(View):
     def get(self, request, post_id):
+        try:
+            post_id = int(post_id)
+        except ValueError:
+            return HTTPResponse(status=404)
         post = get_object_or_404(Post, pk=post_id)
         if request.user in post.participants.all():
             Order.objects.get(post=post, participant=request.user).delete()
             return render(request, "posts/participate.html", {"post": post})
-        else:
+        elif post.community.users.filter(pk=request.user.pk):
             Order.objects.create(post=post, participant=request.user, role=Order.SHARER)
             return render(request, "posts/unparticipate.html", {"post": post})
+        else:
+            return render(request, "community/invalid_request.html")
 
 
 class DeletePost(View):
-    def get(self, request, post_id):
-        Post.objects.filter(pk=post_id).delete()
-        return render(request, "posts/success.html")
+    def delete(self, request, post_id):
+        try:
+            post_id = int(post_id)
+        except ValueError:
+            return HTTPResponse(status=404)
+        post = get_object_or_404(Post, pk=post_id)
+        if request.user == post.host:
+            post.delete()
+            return render(request, "posts/success.html")
+        else:
+            return render(request, "community/invalid_request.html")
 
 
 class AsynUpdatePost(View):
