@@ -1,6 +1,7 @@
 .search {
     width: 90%;
     display: flex;
+    margin: auto;
 }
 
 @media (min-width:600px) {
@@ -9,33 +10,6 @@
         display: flex;
         margin: auto;
     }
-}
-
-.searchTerm {
-    width: 100%;
-    border: 3px solid #00B4CC;
-    border-right: none;
-    padding: 5px;
-    height: 2rem;
-    border-radius: 5px 0 0 5px;
-    outline: none;
-    color: #9DBFAF;
-}
-
-.searchTerm:focus {
-    color: #00B4CC;
-}
-
-.searchButton {
-    width: 4rem;
-    height: 3rem;
-    border: 1px solid #00B4CC;
-    background: #00B4CC;
-    text-align: center;
-    color: #fff;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
-    font-size: 1.5rem;
 }
 
 
@@ -82,6 +56,7 @@
 button.green-button {
     margin-top: 1rem;
     padding: 0.6rem;
+    margin-bottom: 1rem;
 }
 
 button.blue-button {
@@ -106,9 +81,41 @@ textarea {
 
 select#distance {
     width: 15%;
+    min-width: 5.5rem;
     margin-left: 2rem;
 }
 
 label.distance {
     display: none;
+}
+
+.searchTerm {
+    border: 3px solid #00B4CC;
+    border-right: none;
+    padding: 5px;
+    height: 2rem;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    color: #9DBFAF;
+}
+
+.searchTerm:focus {
+    color: #00B4CC;
+}
+
+.searchButton,
+.current-location {
+    width: 4rem;
+    height: 3rem;
+    border: 1px solid #00B4CC;
+    background: #00B4CC;
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.current-location {
+    margin-left: 1rem;
 }

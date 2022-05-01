@@ -8,20 +8,36 @@
 
 <script src="{% static 'posts/outmodal.js' %}" defer></script>
 <link rel="stylesheet" href="{% static 'geocommunity/index_style.css' %}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
+<script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
 {% endblock customstyle %}
 
 {% block title %}Communities{% endblock %}
 {% block content%}
 <div class="community-page">
 
+    <div class="offer" x-data="{'modalopen':false}" x-cloak hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
 
+        <button class="green-button" type="button" @click="modalopen=true">New Community
+        </button>
+        <div class="overlay" x-show="modalopen">
+            {% include "registration/new_community_form.html" %}
+        </div>
+
+    </div>
     <div class="search">
-        <input type="text" class="searchTerm" placeholder="Search for communities in your neighborhood" autofocus>
+
+        <input type="text" class="searchTerm" placeholder="Address to search for communities" autofocus>
         <button type="button" class="searchButton">
             <i class="fa fa-search"></i>
 
         </button>
+
+        <button type="button" class="current-location" title="Get current location">
+            <i class="fa-solid fa-crosshairs"></i>
+        </button>
+
+
 
         <label class="distance" for="distance">Distance</label>
 
@@ -33,15 +49,7 @@
     </div>
 
 
-    <div class="offer" x-data="{'modalopen':false}" x-cloak hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
 
-        <button class="green-button" type="button" @click="modalopen=true">Create
-        </button>
-        <div class="overlay" x-show="modalopen">
-            {% include "registration/new_community_form.html" %}
-        </div>
-
-    </div>
 
 </div>
 {% endblock content %}

@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_htmx",
     "django.contrib.gis",
+    "fontawesomefree",
 ]
 
 MIDDLEWARE = [
