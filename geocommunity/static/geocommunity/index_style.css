@@ -119,3 +119,8 @@ label.distance {
 .current-location {
     margin-left: 1rem;
 }
+
+#map {
+    width: 80%;
+    height: auto;
+}

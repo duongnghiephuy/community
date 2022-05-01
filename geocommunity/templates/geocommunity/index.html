@@ -6,10 +6,18 @@
 
 {% block customstyle%}
 
-<script src="{% static 'posts/outmodal.js' %}" defer></script>
+
 <link rel="stylesheet" href="{% static 'geocommunity/index_style.css' %}">
 <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
-<script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+    integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+    crossorigin="" />
+<script src="{% static 'fontawesomefree/js/all.min.js' %}" defer></script>
+<script src="{% static 'posts/outmodal.js' %}" defer></script>
+<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+    integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+    crossorigin="" defer></script>
+<script src="{% static 'geocommunity/searchnearby.js' %}" defer></script>
 {% endblock customstyle %}
 
 {% block title %}Communities{% endblock %}
@@ -47,6 +55,7 @@
             <option value="1">In 1km</option>
         </select>
     </div>
+    <div id="map"></div>
 
 
 
