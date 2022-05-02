@@ -5,7 +5,7 @@ app_name = "geocommunity"
 urlpatterns = [
     path("", views.CommunitiesView.as_view(), name="index-view"),
     path(
-        "searchnearby/<str:address>/<str:lat>/<str:long>/<int:distance>",
+        "searchnearby/<str:lat>/<str:long>/<int:distance>",
         views.search_nearby,
         name="searchnearby",
     ),

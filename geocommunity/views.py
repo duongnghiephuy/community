@@ -24,19 +24,13 @@ class CommunitiesView(View):
         return render(request, "geocommunity/index.html", {"form": form})
 
 
-def search_nearby(request, address, lat, long, distance):
-    if address != "No":
-        location = geocode_address(address)
-        if not location:
-            return HttpResponse(status=404)
-        latitude = location.latitude
-        longtitude = location.longtitude
-    else:
-        try:
-            latitude = float(lat)
-            longtitude = float(long)
-        except ValueError:
-            return HttpResponse(status=404)
+def search_nearby(request, lat, long, distance):
+
+    try:
+        latitude = float(lat)
+        longtitude = float(long)
+    except ValueError:
+        return HttpResponse(status=404)
     point = Point(longtitude, latitude)
     search_res = serialize(
         "geojson",
