@@ -37,5 +37,5 @@ def search_nearby(request, lat, long, distance):
         Community.objects.filter(location__distance_lte=(point, D(km=distance))),
         fields=("pk", "name", "description", "location"),
     )
-    print(search_res)
+
     return HttpResponse(search_res, content_type="application/json")

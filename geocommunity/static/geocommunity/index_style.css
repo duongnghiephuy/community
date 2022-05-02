@@ -127,3 +127,8 @@ label.distance {
 
     margin: auto;
 }
+
+.error-message {
+    text-align: center;
+    color: red;
+}
