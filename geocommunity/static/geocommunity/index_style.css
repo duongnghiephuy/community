@@ -121,6 +121,9 @@ label.distance {
 }
 
 #map {
-    width: 80%;
-    height: auto;
+
+    width: 80vw;
+    height: 60vh;
+
+    margin: auto;
 }

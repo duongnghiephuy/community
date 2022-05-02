@@ -25,7 +25,7 @@ class CommunitiesView(View):
 
 
 def search_nearby(request, address, lat, long, distance):
-    if address != "":
+    if address != "No":
         location = geocode_address(address)
         if not location:
             return HttpResponse(status=404)
@@ -38,9 +38,10 @@ def search_nearby(request, address, lat, long, distance):
         except ValueError:
             return HttpResponse(status=404)
     point = Point(longtitude, latitude)
-    response = serialize(
+    search_res = serialize(
         "geojson",
         Community.objects.filter(location__distance_lte=(point, D(km=distance))),
-        fields=("name", "description", "location"),
+        fields=("pk", "name", "description", "location"),
     )
-    return JsonResponse(response)
+    print(search_res)
+    return HttpResponse(search_res, content_type="application/json")
