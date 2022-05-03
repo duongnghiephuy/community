@@ -9,4 +9,9 @@ urlpatterns = [
         views.search_nearby,
         name="searchnearby",
     ),
+    path(
+        "searchnearby/join/<int:pk>",
+        views.join,
+        name="join",
+    ),
 ]

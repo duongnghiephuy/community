@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from geopy.geocoders import Nominatim
 from django.contrib.gis.geos import Point
 from accounts.models import Community, MemberRole
@@ -36,3 +36,13 @@ def search_nearby(request, lat, long, distance):
     )
 
     return HttpResponse(search_res, content_type="application/json")
+
+
+def join(request, pk):
+    community = get_object_or_404(Community, pk=pk)
+    if not MemberRole.objects.filter(community=community, user=request.user).exists():
+        MemberRole.objects.create(
+            community=community, user=request.user, role=MemberRole.MEMBER
+        )
+
+    return HttpResponse("Success")
