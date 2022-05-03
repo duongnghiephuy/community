@@ -128,7 +128,7 @@ clickAddress.addEventListener("click", resolveParam2);
 
 errorMessage = document.querySelector(".error-message");
 
-map = L.map("map").setView([0, 0], 15);
+map = L.map("map").setView([0, 0], 2);
 L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors', tileSize: 512, zoomOffset: -1
 

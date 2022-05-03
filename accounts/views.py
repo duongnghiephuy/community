@@ -46,7 +46,15 @@ class CommunityCreate(View):
         error_message = None
         form = CommunityCreationForm(request.POST, request.FILES)
         if form.is_valid():
-            address = form.cleaned_data["address"]
+            address = {}
+            for temp in ["country", "city", "housestreet"]:
+                address[temp] = form.cleaned_data[temp]
+            if (
+                form.cleaned_data["postalcode"]
+                and form.cleaned_data["postalcode"] != ""
+            ):
+                address["postalcode"] = form.cleaned_data["postalcode"]
+
             location = geocode_address(address)
 
             if location:
@@ -64,9 +72,9 @@ class CommunityCreate(View):
                     user=request.user, community=community, role=MemberRole.ADMIN
                 )
 
-                return render("posts/success.html")
+                return render(request, "posts/success.html")
             else:
-                error_message = "String location is not in the database"
+                error_message = "Location is not in the database, please check again<br>You can try to remove detail so that only country, city, street are left"
         return render(
             request,
             "registration/new_community_form.html",
