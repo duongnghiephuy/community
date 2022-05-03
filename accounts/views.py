@@ -3,8 +3,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
 from django.urls import reverse, reverse_lazy
 from django.views import View
-from .forms import CommunityCreationForm
-from .models import Community, MemberRole
+from .forms import CommunityCreationForm, UserProfileForm
+from .models import Community, MemberRole, UserProfile
 from django.contrib.gis.geos import Point
 from geopy.geocoders import Nominatim
 
@@ -76,3 +76,28 @@ class CommunityCreate(View):
 
         form = CommunityCreationForm()
         return render(request, "registration/new_community_form.html", {"form": form})
+
+
+class UserProfileView(View):
+    def get(self, request):
+        if UserProfile.filter(user=request.user).exists():
+            userprofile = UserProfile.get(user=request.user)
+            form = UserProfileForm(userprofile)
+        else:
+            form = UserProfileForm()
+
+        return render(request, "registration/userprofile.html", {"form": form})
+
+    def post(self, request):
+        form = UserProfileForm(request.POST, request.FILES)
+        form.instance.user = request.user
+        if form.is_valid():
+            userprofile = form.save(commit=False)
+            userprofile.save()
+            return render(
+                request,
+                "registration/userprofile.html",
+                {"form": form, "success": "Your changes have been saved"},
+            )
+        else:
+            return render(request, "registration/userprofile.html", {"form": form})

@@ -1,0 +1,50 @@
+{% extends "community/base.html" %}
+
+{% load static%}
+
+{% block customstyle%}
+
+<link rel="stylesheet" href="{% static 'accounts/userprofile_style.css' %}">
+
+{% endblock customstyle %}
+
+{% block title %}Profile{% endblock %}
+{% block content%}
+<div class="profile">
+    <section class="info">
+        <form hx-post="{% url 'accounts:profileview' %}" hx-encoding='multipart/form-data' hx-swap="outerHTML">
+
+            <h2>Profile</h2>
+            {% if success %}
+            <strong>{{success}}</strong>
+            {% endif %}
+
+            {% csrf_token %}
+
+            {% for field in form %}
+
+            <p><strong>{{ field.label_tag }}</strong></p>
+            <p>{{ field }}</p>
+
+            {% for error in field.errors %}
+            <p><em>{{ error }}</em></p>
+            {% endfor %}
+            {% endfor %}
+            <button value="update">Update</button>
+
+        </form>
+
+
+    </section>
+    <section class="avatar">
+        {% if form.avatar %}
+        <img src="{{form.avatar.url}}" alt="Profile Image">
+        {% else %}
+        <img src="{% static 'community/images/defaultuserprofile.svg' %}" alt="Profile Image">
+        {% endif %}
+        {% if form.email %}
+        <p>{{form.email}}</p>
+        {% endif %}
+    </section>
+</div>
+{% endblock content %}
