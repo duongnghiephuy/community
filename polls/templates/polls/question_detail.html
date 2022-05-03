@@ -18,7 +18,7 @@
     </h2>
 
     <form hx-post="{% url 'polls:votemodal' question.id %}" hx-target=".modal-target" hw-swap="outerHTML">
-        {% csrf_token %}
+
         <fieldset>
             <legend>
                 <h3>

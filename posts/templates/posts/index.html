@@ -36,7 +36,7 @@
         {% include "posts/pagination.html" %}
     </section>
     <aside>
-        <div class="offer" x-data="{'modalopen':false}" x-cloak hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+        <div class="offer" x-data="{'modalopen':false}" x-cloak>
 
             <button class="green-button" type="button" @click="modalopen=true">New
                 Post</button>
