@@ -30,7 +30,8 @@ aside ul {
 button.generic-button,
 button.green-button,
 button.red-button,
-button.blue-button {
+button.blue-button,
+button.black-button {
     padding-left: 1rem;
     padding-right: 1rem;
     padding-top: 0.5rem;
@@ -71,4 +72,14 @@ button.red-button:hover {
 button.red-button {
     background-color: white;
     border-color: red;
+}
+
+button.black-button {
+    background-color: white;
+    border-color: black;
+}
+
+button.black-button:hover {
+    background-color: black;
+    color: white;
 }

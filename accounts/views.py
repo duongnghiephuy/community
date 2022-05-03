@@ -80,8 +80,8 @@ class CommunityCreate(View):
 
 class UserProfileView(View):
     def get(self, request):
-        if UserProfile.filter(user=request.user).exists():
-            userprofile = UserProfile.get(user=request.user)
+        if UserProfile.objects.filter(user=request.user).exists():
+            userprofile = UserProfile.objects.get(user=request.user)
             form = UserProfileForm(userprofile)
         else:
             form = UserProfileForm()

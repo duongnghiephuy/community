@@ -30,20 +30,20 @@
             <p><em>{{ error }}</em></p>
             {% endfor %}
             {% endfor %}
-            <button value="update">Update</button>
+            <button class="black-button" value="update">Update</button>
 
         </form>
 
 
     </section>
     <section class="avatar">
-        {% if form.avatar %}
+        {% if form.avatar.url %}
         <img src="{{form.avatar.url}}" alt="Profile Image">
         {% else %}
         <img src="{% static 'community/images/defaultuserprofile.svg' %}" alt="Profile Image">
         {% endif %}
-        {% if form.email %}
-        <p>{{form.email}}</p>
+        {% if form.email.value %}
+        <p>{{form.email.value}}</p>
         {% endif %}
     </section>
 </div>
