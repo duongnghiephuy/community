@@ -44,7 +44,7 @@ class searchNearby {
 
                     let popup = `<p><strong>${feature.properties.name}</strong></p>
                         <p>${feature.properties.description}</p>
-                        <button type="button" value="join" hx-get="/join/${feature.properties.pk}" hx-trigger="click" hx-swap="delete">Join</button>`;
+                        <button class="green-button" type="button" value="join" hx-get="/join/${feature.properties.pk}" hx-trigger="click" hx-swap="delete">Join</button>`;
                     marker.bindPopup(popup);
                     positions.push(marker);
 
