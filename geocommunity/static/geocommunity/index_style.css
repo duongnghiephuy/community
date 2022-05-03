@@ -132,3 +132,11 @@ label.distance {
     text-align: center;
     color: red;
 }
+
+img.success-gif {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    height: auto;
+}

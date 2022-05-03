@@ -3,7 +3,7 @@
     <form hx-post="{% url 'polls:votemodal' question.id %}" tabindex="-1" x-on:click.away="isModalOpen=false"
         class="modal">
         <span @click="isModalOpen = false" x-transition class="close">&times;</span>
-        {% csrf_token %}
+
 
         <fieldset>
             <legend>
