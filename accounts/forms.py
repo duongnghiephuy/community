@@ -1,6 +1,7 @@
 from attr import field
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
+from numpy import require
 from .models import Community, UserProfile
 from django.forms import ModelForm
 from django import forms
@@ -20,8 +21,26 @@ class CustomLoginForm(AuthenticationForm):
 
 class CommunityCreationForm(ModelForm):
 
-    address = forms.CharField(
-        max_length=600, widget=forms.TextInput(attrs={"placeholder": "Address"})
+    country = forms.CharField(
+        label="Country",
+        max_length=50,
+        widget=forms.TextInput(attrs={"placeholder": "Vietnam"}),
+    )
+    city = forms.CharField(
+        label="City",
+        max_length=50,
+        widget=forms.TextInput(attrs={"placeholder": "Hanoi"}),
+    )
+    housestreet = forms.CharField(
+        label="House number, Street",
+        max_length=200,
+        widget=forms.TextInput(attrs={"placeholder": "57, Bach Mai"}),
+    )
+    postalcode = forms.CharField(
+        label="Postal Code",
+        max_length=20,
+        required=False,
+        widget=forms.TextInput(attrs={"placeholder": "100000"}),
     )
 
     class Meta:

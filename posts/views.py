@@ -13,7 +13,7 @@ from django.utils import timezone
 
 class NewPost(View):
     def get(self, request):
-        form = PostForm(request.user)
+        form = PostForm(user=request.user)
         return render(request, "posts/post_form.html", {"form": form})
 
     def post(self, request):

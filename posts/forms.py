@@ -40,8 +40,9 @@ class PostForm(ModelForm):
                 "placeholder": "Title",
             }
         )
-        self.fields["community"] = forms.MultipleChoiceField(
-            choices=Community.objects.filter(users=user), widget=forms.Select
+
+        self.fields["community"] = forms.ModelMultipleChoiceField(
+            queryset=Community.objects.filter(users=user), widget=forms.Select
         )
 
         for visible in self.visible_fields():

@@ -15,7 +15,7 @@ class searchNearby {
         });;
     }
 
-    mapNearby(response) {
+    async mapNearby(response) {
 
 
         if (typeof (this.markers) !== "undefined") {
@@ -24,17 +24,29 @@ class searchNearby {
         }
 
         let positions = [];
-        const data = response.json().features;
+        let rotations = [0, 45, 90];
+        const check = await response.json();
+        const data = check.features;
+
+        this.map.setView([this.lat, this.long], 12);
         positions.push(L.marker([this.lat, this.long]).bindPopup("<strong>Current Location</strong>"));
+
         if (response.ok) {
+
             if (typeof (data) !== "undefined" && data.length > 0) {
-                for (const feature of data) {
-                    let marker = L.marker([feature.coordinates[1], feature.coordinates[0]]);
+                let j = 0;
+                for (let index = 0; index < data.length; index++) {
+                    let feature = data[`${index}`];
+                    j = j % rotations.length;
+
+                    let marker = L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], { rotationAngle: rotations[j] });
+                    j++;
+
                     let popup = `<p><strong>${feature.properties.name}</strong></p>
                         <p>${feature.properties.description}</p>
                         <button type="button" value="join" hx-get="/join/${feature.properties.pk}" hx-trigger="click" hx-swap="delete">Join</button>`;
                     marker.bindPopup(popup);
-                    positions.push(marker)
+                    positions.push(marker);
 
                 }
             }
@@ -46,9 +58,11 @@ class searchNearby {
         else {
             errorMessage.innerHTML += " Please check your network";
         }
+
         this.markers = L.layerGroup(positions);
         this.markers.addTo(this.map);
-        this.map.setView(new L.LatLng(this.lat, this.long), 15);
+
+
 
         console.log("Finish");
     }
@@ -112,7 +126,7 @@ async function resolveParam2(e) {
             errorMessage.innerHTML += "Address not valid, please try a more general one";
         }
         res.distance = document.querySelector("#distance").value;
-        res.getNearby();
+        await res.getNearby();
     }
 
 }
@@ -128,7 +142,7 @@ clickAddress.addEventListener("click", resolveParam2);
 
 errorMessage = document.querySelector(".error-message");
 
-map = L.map("map").setView([0, 0], 15);
+map = L.map("map").setView([0, 0], 2);
 L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors', tileSize: 512, zoomOffset: -1
 
