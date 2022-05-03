@@ -12,27 +12,7 @@
 {% block content%}
 <div class="profile">
     <section class="info">
-        <form hx-post="{% url 'accounts:profileview' %}" hx-encoding='multipart/form-data' hx-swap="outerHTML">
-
-            <h2>Profile</h2>
-            {% if success %}
-            <strong>{{success}}</strong>
-            {% endif %}
-
-            {% csrf_token %}
-
-            {% for field in form %}
-
-            <p><strong>{{ field.label_tag }}</strong></p>
-            <p>{{ field }}</p>
-
-            {% for error in field.errors %}
-            <p><em>{{ error }}</em></p>
-            {% endfor %}
-            {% endfor %}
-            <button class="black-button" value="update">Update</button>
-
-        </form>
+        {% include "registration/profileform.html" %}
 
 
     </section>

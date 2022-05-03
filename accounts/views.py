@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
 from django.urls import reverse, reverse_lazy
 from django.views import View
+from wasmtime import Instance
 from .forms import CommunityCreationForm, UserProfileForm
 from .models import Community, MemberRole, UserProfile
 from django.contrib.gis.geos import Point
@@ -81,23 +82,25 @@ class CommunityCreate(View):
 class UserProfileView(View):
     def get(self, request):
         if UserProfile.objects.filter(user=request.user).exists():
-            userprofile = UserProfile.objects.get(user=request.user)
-            form = UserProfileForm(userprofile)
+            form = UserProfileForm(instance=request.user.userprofile)
         else:
             form = UserProfileForm()
 
         return render(request, "registration/userprofile.html", {"form": form})
 
     def post(self, request):
-        form = UserProfileForm(request.POST, request.FILES)
-        form.instance.user = request.user
+        try:
+            profile = request.user.userprofile
+        except UserProfile.DoesNotExist:
+            profile = UserProfile(user=request.user)
+
+        form = UserProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
-            userprofile = form.save(commit=False)
-            userprofile.save()
+            form.save()
             return render(
                 request,
-                "registration/userprofile.html",
+                "registration/profileform.html",
                 {"form": form, "success": "Your changes have been saved"},
             )
         else:
-            return render(request, "registration/userprofile.html", {"form": form})
+            return render(request, "registration/profileform.html", {"form": form})
