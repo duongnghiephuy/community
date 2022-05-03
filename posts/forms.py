@@ -40,7 +40,7 @@ class PostForm(ModelForm):
                 "placeholder": "Title",
             }
         )
-        print(Community.objects.filter(users=user))
+
         self.fields["community"] = forms.ModelMultipleChoiceField(
             queryset=Community.objects.filter(users=user), widget=forms.Select
         )
