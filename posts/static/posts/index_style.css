@@ -110,6 +110,7 @@ section.post-list {
 
 aside {
     grid-area: aside;
+    margin-right: 0.5rem;
 }
 
 .post-page {

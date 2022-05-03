@@ -4,6 +4,7 @@
 
 aside {
     grid-area: aside;
+    margin-right: 1.5rem;
 }
 
 .schedule {
