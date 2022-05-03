@@ -1,7 +1,8 @@
 from django import forms
 from django.forms import ModelForm
 from .models import Post
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User
+from accounts.models import Community
 from django.utils.translation import gettext_lazy as _
 
 
@@ -38,6 +39,9 @@ class PostForm(ModelForm):
             {
                 "placeholder": "Title",
             }
+        )
+        self.fields["community"] = forms.MultipleChoiceField(
+            Community.objects.filter(users=user)
         )
 
         for visible in self.visible_fields():
