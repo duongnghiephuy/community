@@ -65,6 +65,7 @@
                 {%if request.user.is_authenticated%}
                 <li><a class="nav-item" href="{% url 'geocommunity:index-view' %}">Communities</a></li>
                 <li><a class="nav-item" href="{% url 'accounts:profileview' %}">Profile</a></li>
+                <li><a class="nav-item" href="{% url 'accounts:logout' %}">SignOut</a></li>
 
                 {% else %}
                 <li><a class="nav-item" href="{% url 'accounts:login'%}">Log In</a></li>

@@ -24,6 +24,7 @@ a.nav-item:hover {
 
 aside ul {
     list-style: url("images/link_image.svg");
+    padding-left: 1.5rem;
 
 }
 

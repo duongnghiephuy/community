@@ -9,6 +9,11 @@ aside.vote-side {
     margin-left: 3%;
 }
 
+aside li {
+    margin-left: 0;
+    padding-left: 0;
+}
+
 div.vote-extra {
     grid-area: extra;
     text-align: center;
