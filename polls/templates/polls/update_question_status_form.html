@@ -1,0 +1,21 @@
+{% load static%}
+
+<form class="modal" hx-post="{% url 'polls:updatestatus' %}" hx-swap="outerHTML" tabindex="-1"
+    @click.outside="modalopen=false">
+
+    <h2>Change Question Status</h2>
+    {% if message %}
+    {{message}}
+    {% endif %}
+    {% for field in form %}
+    <div class="field">
+        {{ field.label_tag }}
+        <div>{{ field }}</div>
+        {% for error in field.errors %}
+        <p>{{ error }}</p>
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+    <button type="submit" value="updatestatus" class="blue-button">Update</button>
+</form>

@@ -1,6 +1,5 @@
 import datetime
-
-
+from django.views.generic.edit import UpdateView
 from django.shortcuts import render
 from django.http import (
     Http404,
@@ -17,7 +16,7 @@ from django.utils import timezone
 from polls.result_graph import result_graph
 from .models import Question, Choice, Vote
 from .result_graph import result_graph
-from .forms import CreateQuestionForm
+from .forms import CreateQuestionForm, UpdateQuestionStatusForm
 
 # Create your views here.
 class IndexView(TemplateView):
@@ -98,6 +97,12 @@ class QuestionDetailView(DetailView):
     def get_queryset(self):
         return Question.objects.filter(pub_date__lte=timezone.now())
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        self.form = CreateQuestionForm(user=self.request.user)
+        context["form"] = self.form
+        return context
+
 
 class QuestionModalView(DetailView):
     model = Question
@@ -113,6 +118,12 @@ class ResultDetailView(View):
         result_plot = result_graph(question)
         context = {"result_plot": result_plot, "question": question}
         return render(request, "polls/result_detail.html", context=context)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        self.form = CreateQuestionForm(user=self.request.user)
+        context["form"] = self.form
+        return context
 
 
 class ResultModalView(View):
@@ -189,6 +200,7 @@ class CreateQuestion(View):
         community_id = int(request.POST.get("community", ""))
         form.instance.author = request.user
         if form.is_valid():
+
             if not request.user.community_set.filter(id=community_id).exists():
                 return render(
                     request,
@@ -214,3 +226,26 @@ class CreateQuestion(View):
 
 def add_choice(request, id):
     return render(request, "polls/choice.html", {"id": id + 1})
+
+
+class UpdateQuestionStatus(View):
+    def get(self, request):
+        form = UpdateQuestionStatusForm(request.user)
+        return render(request, "polls/update_question_status_form.html", {"form": form})
+
+    def post(self, request):
+        form = UpdateQuestionStatusForm(request.user, request.POST)
+        message = None
+        if form.is_valid():
+            question = form.cleaned_data["question"]
+            closed = form.cleaned_data["closed"]
+            question.closed = closed
+            question.save()
+            form = UpdateQuestionStatusForm(request.user)
+            message = "Done.More?"
+
+        return render(
+            request,
+            "polls/update_question_status_form.html",
+            {"form": form, "message": message},
+        )

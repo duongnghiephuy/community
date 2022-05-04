@@ -1,7 +1,7 @@
 {% load static%}
 
 <form class="modal" hx-post="{% url 'polls:createquestion' %}" hx-swap="outerHTML" tabindex="-1"
-    hx-encoding='multipart/form-data' @click.outside="modalopen=false">
+    @click.outside="modalopen=false">
 
     <h2>New Poll</h2>
     {% if error_message %}

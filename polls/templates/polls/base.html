@@ -21,6 +21,13 @@
     </section>
 
     <aside class="vote-side">
+        <div x-data="{'modalopen':false}" x-cloak>
+            <button class="black-button" type="button" @click="modalopen=true" hx-get="{% url 'polls:updatestatus' %}"
+                hx-swap="innerHTML" hx-target="#statusoverlay">Update Poll Status</button>
+            <div class="overlay" id="statusoverlay" x-show="modalopen">
+
+            </div>
+        </div>
 
 
         <div x-data="{'modalopen':false}" x-cloak>
@@ -37,7 +44,7 @@
             </ul>
     </aside>
     <div class="vote-extra">
-        <h3> Most popular vote</h3>
+        <h3> Most popular</h3>
     </div>
 </div>
 {% endblock content %}

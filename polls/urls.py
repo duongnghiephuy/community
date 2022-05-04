@@ -31,4 +31,5 @@ urlpatterns = [
     ),
     path("createquestion", views.CreateQuestion.as_view(), name="createquestion"),
     path("addchoice/<int:id>", views.add_choice, name="addchoice"),
+    path("updatestatus", views.UpdateQuestionStatus.as_view(), name="updatestatus"),
 ]
