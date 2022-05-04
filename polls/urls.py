@@ -30,4 +30,5 @@ urlpatterns = [
         name="result-detail-modal",
     ),
     path("createquestion", views.CreateQuestion.as_view(), name="createquestion"),
+    path("addchoice/<int:id>", views.add_choice, name="addchoice"),
 ]

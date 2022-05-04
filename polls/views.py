@@ -196,6 +196,21 @@ class CreateQuestion(View):
                     {"form": form, "permissionerror": "You are not in the community"},
                 )
             new_question = form.save()
+
+            for i in range(1, len(request.POST)):
+                choice_text = request.POST.get(f"choice{i}", "")
+                if choice_text != "":
+                    try:
+                        Choice.objects.create(
+                            question=new_question, choice_text=choice_text
+                        )
+                    except:
+                        pass
+
             return render(request, "polls/success.html", {"question": new_question})
         else:
             return render(request, "polls/create_question_form.html", {"form": form})
+
+
+def add_choice(request, id):
+    return render(request, "polls/choice.html", {"id": id + 1})

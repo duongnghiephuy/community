@@ -1,3 +1,5 @@
+{% load static%}
+
 <form class="modal" hx-post="{% url 'polls:createquestion' %}" hx-swap="outerHTML" tabindex="-1"
     hx-encoding='multipart/form-data' @click.outside="modalopen=false">
 
@@ -14,6 +16,12 @@
         {% endfor %}
     </div>
     {% endfor %}
+    <ul>
+        <button type="button" class="green-button" value="add-choice" hx-get="{% url 'polls:addchoice' id=0 %}">Add
+            Choice</button>
+
+    </ul>
+
 
     <button type="submit" value="newpoll" class="blue-button">Create</button>
 </form>
