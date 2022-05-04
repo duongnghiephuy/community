@@ -58,14 +58,14 @@ Or use requirements.txt.
 
 Standard django project structure 
 ```
-+-- _accounts
-+-- _community
-+-- _geocommunity
-+-- _polls
++-- accounts
++-- community
++-- geocommunity
++-- polls
 |   +-- templates/polls
 |   +-- static/polls
 |   +-- ...
-+-- _posts
++-- posts
 ```
 
 ## What I learnt and problems that I faced
