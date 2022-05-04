@@ -34,7 +34,7 @@ Example in the video:
 - htmx: https://htmx.org/ django-htmx extension is used https://github.com/adamchainz/django-htmx
 - alpine js: https://alpinejs.dev/
 - leaflet: https://leafletjs.com/ with openstreetmap as provider
-- leaflet plugin for marker rotation: https://github.com/bbecquet/Leaflet.RotatedMarker. This is used to provide a simple solution for overlapping markers at the same coordinates
+- leaflet plugin for marker rotation: https://github.com/bbecquet/Leaflet.RotatedMarker.
 - fontawesome: https://fontawesome.com/ fontawesomefree django extension is used 
 - plotly: for plotting graph `pip install plotly`
 - geodjango: https://docs.djangoproject.com/en/4.0/ref/contrib/gis/ It is shipped with django but further installation is necessary. Installation steps here use spatialite extension for sqlite on Windows 64. This is an alternative to geodjango official guide as I failed to replicate that. 
@@ -58,17 +58,17 @@ Or use requirements.txt.
 
 Standard django project structure 
 ```
-+-- accounts
-+-- community
-+-- geocommunity
-+-- polls
-|   +-- templates/polls
-|   +-- static/polls
++-- accounts: app for authentication process, user, group
++-- community: initial app contains home page and base template for the website
++-- geocommunity: app for geo-based features eg: search communities within a distance to join 
+|   +-- templates/geocommunity
+|   +-- static/geocommunity
 |   +-- ...
-+-- posts
++-- polls: app for voting
++-- posts: app for posting sharing, interacting with sharing posts, schedule
 ```
 
-## What I learnt and problems that I faced
+## What I learnt and interesting problems
 Firstly, I understand a little more why combination of React for frontend and Django REST API for backend is wonderful and perfect for large applications with complex state and API calls to other services. On the other hand, HTMX and Alpine.js may be good for projects without difficult frontend. 
 
 One interesting thing to note is that because of htmx's nature, I can organize some components in Django HTML template and employ 
@@ -76,7 +76,23 @@ One interesting thing to note is that because of htmx's nature, I can organize s
 
 I also learnt more and practiced to make good modular OOP Javascript code. I learnt a bit more about geo based applications, Map API, geojson.  
 
-I was able to deepen my knowledge in Django, basic of how Django REST use Json reponse to work with frontend framework, appreciate how convenient this structure is.
+I was able to deepen my knowledge in Django, basic of how Django REST use Json reponse to work with frontend framework, appreciate how convenient this approach is.
+
+One interesting problem was overlapping markers at the same coordinates on leaflet map. They will only show one pop up and 1 marker. I think using some libraries and further customization will be better, howeve, I made a quick, hacky solution using marker rotation since I want individual pop up for each marker not cluster marker.
+It is currently only good for a few overlapping markers. Problem is that pop up is not rotated with marker.
+
+Another is that preserving state such as pagination page is not so easy with htmx since htmx-preserve is not sufficient. My solution is using htmx-swap-oob, smaller templates, and include.   
+
+Changing model and migration with existing data is quite challenging. It's easy to mess up. 
+
+A through model is good for many to many relationship as it allows more control and visibility. 
+
+Without Django Rest, Django should should return Json data after serializing by 
+```
+json_data=serialize(queryset)
+return HttpResponse(json_data, content_type="application/json")
+```
+
 
 ## Reference
 
