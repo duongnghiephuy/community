@@ -88,7 +88,7 @@ I was able to deepen my knowledge in Django, basic of how Django REST use Json r
 
 - A through model is good for many to many relationship as it allows more control and visibility. 
 
-- Without Django Rest, Django should should return Json data after serializing by 
+- Without Django Rest, Django views should should return Json data after serializing by 
 ```
 json_data=serialize(queryset)
 return HttpResponse(json_data, content_type="application/json")
