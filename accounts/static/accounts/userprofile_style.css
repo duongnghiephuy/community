@@ -4,6 +4,7 @@
 
 .avatar {
     grid-area: avatar;
+    text-align: center;
 }
 
 .profile {
@@ -44,8 +45,12 @@ textarea {
 }
 
 .avatar img {
-    width: 60%;
-    height: auto;
+    width: 70%;
+    aspect-ratio: 1/1;
+}
+
+.user-img {
+    border-radius: 50%;
 }
 
 .black-button {

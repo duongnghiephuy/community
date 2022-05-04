@@ -91,10 +91,15 @@ class UserProfileView(View):
     def get(self, request):
         if UserProfile.objects.filter(user=request.user).exists():
             form = UserProfileForm(instance=request.user.userprofile)
+            profile = request.user.userprofile
+
         else:
             form = UserProfileForm()
+            profile = None
 
-        return render(request, "registration/userprofile.html", {"form": form})
+        return render(
+            request, "registration/userprofile.html", {"form": form, "profile": profile}
+        )
 
     def post(self, request):
         try:
@@ -104,11 +109,19 @@ class UserProfileView(View):
 
         form = UserProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
-            form.save()
+            profile = form.save()
             return render(
                 request,
                 "registration/profileform.html",
-                {"form": form, "success": "Your changes have been saved"},
+                {
+                    "form": UserProfileForm(instance=profile),
+                    "success": "Your changes have been saved",
+                    "profile": profile,
+                },
             )
         else:
-            return render(request, "registration/profileform.html", {"form": form})
+            return render(
+                request,
+                "registration/profileform.html",
+                {"form": form, "profile": profile},
+            )

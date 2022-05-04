@@ -10,21 +10,9 @@
 
 {% block title %}Profile{% endblock %}
 {% block content%}
-<div class="profile">
-    <section class="info">
-        {% include "registration/profileform.html" %}
+
+{% include "registration/profileform.html" %}
 
 
-    </section>
-    <section class="avatar">
-        {% if form.avatar.url %}
-        <img src="{{form.avatar.url}}" alt="Profile Image">
-        {% else %}
-        <img src="{% static 'community/images/defaultuserprofile.svg' %}" alt="Profile Image">
-        {% endif %}
-        {% if form.email.value %}
-        <p>{{form.email.value}}</p>
-        {% endif %}
-    </section>
-</div>
+
 {% endblock content %}
