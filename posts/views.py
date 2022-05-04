@@ -61,7 +61,13 @@ class UpdateOrder(View):
             post_id = int(post_id)
         except ValueError:
             return HTTPResponse(status=404)
-        post = get_object_or_404(Post, pk=post_id)
+
+        try:
+            post = Post.objects.get(pk=post_id)
+
+        except Post.DoesNotExist:
+            return render(request, "community/invalid_request.html")
+
         if request.user in post.participants.all():
             Order.objects.get(post=post, participant=request.user).delete()
             return render(request, "posts/participate.html", {"post": post})
