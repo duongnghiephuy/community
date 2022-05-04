@@ -1,0 +1,16 @@
+{% load static%}
+
+<div class="modal successmodal" @click.outside="modalopen=false" hx-get="{% url 'polls:createquestion' %}"
+    hx-trigger="outsideclick" hx-swap="outerHTML">
+    <h2> Congrat, your poll is live </h2>
+    <h3> We are happy to help you connect to your neighborhood</h3>
+    <img class="success-gif" src="{% static 'community/images/success.gif' %}" alt="Success">
+</div>
+
+<div id="question-list" hx-swap-oob="afterbegin">
+    <li class="bubble-item live-question" hx-get="{% url 'polls:question-detail-modal' pk=question.id %}"
+        hx-trigger="click" hx-target=".modal-target" hx-swap="outerHTML" x-on:click="isModalOpen = true" x-transition>
+        <p>{{ question.question_text }} </p>
+        <p>{{ question.pub_date}}</p>
+    </li>
+</div>

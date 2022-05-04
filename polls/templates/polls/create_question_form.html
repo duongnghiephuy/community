@@ -1,0 +1,19 @@
+<form class="modal" hx-post="{% url 'polls:createquestion' %}" hx-swap="outerHTML" tabindex="-1"
+    hx-encoding='multipart/form-data' @click.outside="modalopen=false">
+
+    <h2>New Poll</h2>
+    {% if error_message %}
+    {{error_message}}
+    {% endif %}
+    {% for field in form %}
+    <div class="field">
+        {{ field.label_tag }}
+        <div>{{ field }}</div>
+        {% for error in field.errors %}
+        <p>{{ error }}</p>
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+    <button type="submit" value="newpoll" class="blue-button">Create</button>
+</form>

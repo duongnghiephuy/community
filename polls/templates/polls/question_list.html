@@ -17,7 +17,7 @@
     <h2>
         Live Questions
     </h2>
-    <ul class="question-list">
+    <ul class="question-list" id="question-list">
 
         {% for question in question_list %}
         <li class="bubble-item live-question" hx-get="{% url 'polls:question-detail-modal' pk=question.id %}"

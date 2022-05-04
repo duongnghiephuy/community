@@ -17,6 +17,7 @@ from django.utils import timezone
 from polls.result_graph import result_graph
 from .models import Question, Choice, Vote
 from .result_graph import result_graph
+from .forms import CreateQuestionForm
 
 # Create your views here.
 class IndexView(TemplateView):
@@ -45,10 +46,13 @@ class IndexView(TemplateView):
     def get(self, request):
         recent_live_questions = self.get_recent_live_questions(request)
         recent_closed_questions = self.get_recent_closed_questions(request)
+        form = CreateQuestionForm(user=request.user)
         context = {
             "recent_live_questions": recent_live_questions,
             "recent_closed_questions": recent_closed_questions,
+            "form": form,
         }
+
         return render(request, "polls/index.html", context=context)
 
 
@@ -62,6 +66,12 @@ class QuestionListView(ListView):
             closed=False, community__in=self.request.user.community_set.all()
         ).order_by("-pub_date")
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        self.form = CreateQuestionForm(user=self.request.user)
+        context["form"] = self.form
+        return context
+
 
 class ResultListView(ListView):
     paginate_by = 5
@@ -69,9 +79,16 @@ class ResultListView(ListView):
     template_name = "polls/result_list.html"
 
     def get_queryset(self):
+        self.form = CreateQuestionForm(user=self.request.user)
         return Question.objects.filter(
             closed=True, community__in=self.request.user.community_set.all()
         ).order_by("-pub_date")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["form"] = self.form
+        return context
 
 
 class QuestionDetailView(DetailView):
@@ -160,3 +177,25 @@ def votemodal(request, question_id):
                 "polls/question_detail_modal.html",
                 {"question": question, "error_message": "You are not a voter"},
             )
+
+
+class CreateQuestion(View):
+    def get(self, request):
+        form = CreateQuestionForm(user=request.user)
+        return render(request, "polls/create_question_form.html", {"form": form})
+
+    def post(self, request):
+        form = CreateQuestionForm(request.user, request.POST)
+        community_id = int(request.POST.get("community", ""))
+        form.instance.author = request.user
+        if form.is_valid():
+            if not request.user.community_set.filter(id=community_id).exists():
+                return render(
+                    request,
+                    "polls/create_question_form.html",
+                    {"form": form, "permissionerror": "You are not in the community"},
+                )
+            new_question = form.save()
+            return render(request, "polls/success.html", {"question": new_question})
+        else:
+            return render(request, "polls/create_question_form.html", {"form": form})

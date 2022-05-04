@@ -29,4 +29,5 @@ urlpatterns = [
         views.ResultModalView.as_view(),
         name="result-detail-modal",
     ),
+    path("createquestion", views.CreateQuestion.as_view(), name="createquestion"),
 ]

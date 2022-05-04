@@ -72,7 +72,7 @@ class CommunityCreate(View):
                     user=request.user, community=community, role=MemberRole.ADMIN
                 )
 
-                return render(request, "posts/success.html")
+                return render(request, "accounts/success.html")
             else:
                 error_message = "Location is not in the database, please check again<br>You can try to remove detail so that only country, city, street are left"
         return render(

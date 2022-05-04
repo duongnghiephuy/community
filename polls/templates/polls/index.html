@@ -23,7 +23,7 @@
             Recent Live Questions
         </h3>
 
-        <ul class="question-list">
+        <ul class="question-list" id="question-list">
             {% for question in recent_live_questions %}
             <li class="bubble-item live-question" hx-get="{% url 'polls:question-detail-modal' pk=question.id %}"
                 hx-trigger="click" hx-target=".modal-target" hx-swap="outerHTML" x-on:click="isModalOpen = true"
@@ -40,7 +40,7 @@
 
     <section class="recent-closed-questions">
         <h3>
-            Recent Closed Question Results
+            Recent Question Results
         </h3>
         <ul class="question-list">
             {% for question in recent_closed_questions %}
