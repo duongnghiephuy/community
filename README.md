@@ -57,7 +57,7 @@ Or use requirements.txt.
 ## Project structure
 
 Standard django project structure 
-
+```
 +-- _accounts
 +-- _community
 +-- _geocommunity
@@ -66,6 +66,7 @@ Standard django project structure
 |   +-- static/polls
 |   +-- ...
 +-- _posts
+```
 
 ## What I learnt and problems that I faced
 Firstly, I understand a little more why combination of React for frontend and Django REST API for backend is wonderful and perfect for large applications with complex state and API calls to other services. On the other hand, HTMX and Alpine.js may be good for projects without difficult frontend. 
