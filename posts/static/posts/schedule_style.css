@@ -57,3 +57,8 @@ a:hover {
 .step-links {
     margin-left: 10%;
 }
+
+.generic-button.participated {
+    background-color: #3699b8d5;
+    color: white;
+}
