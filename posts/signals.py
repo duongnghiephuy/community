@@ -10,21 +10,7 @@ from .models import Post, Community
 def delete_associated_files(sender, instance, **kwargs):
 
     """Remove all files of an image after deletion."""
-    try:
-        path = instance.post_image.name
-        if path:
-            default_storage.delete(path)
-    except:
-        print("Check signal function")
 
-
-@receiver(post_delete, sender=Community)
-def delete_Community_associated_files(sender, instance, **kwargs):
-
-    """Remove all files of an image after deletion."""
-    try:
-        path = instance.image.name
-        if path:
-            default_storage.delete(path)
-    except:
-        print("Check signal function")
+    path = instance.post_image.name
+    if path:
+        default_storage.delete(path)
