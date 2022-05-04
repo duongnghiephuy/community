@@ -12,7 +12,9 @@ class elementClickoutside {
     detectClickOutside(event) {
         if (!this.element.contains(event.target)) {
             this.element.dispatchEvent(outclick);
-            this.anotherelement.dispatchEvent(outclick);
+            if (this.anotherelement) {
+                this.anotherelement.dispatchEvent(outclick);
+            }
         }
     }
     handleEvent(event) {
