@@ -8,6 +8,7 @@ I started this project to deepen my understanding of Django and Javascript. At t
 Price at local market especially at large open market is much more affordable but living alone means I can't just purchase a box of potatoes and cook them all in a week. Honestly, sometimes, I wasted a ton of grocery after buying from the supermarket because I was busy the next few days.
 
 In light of the problem, I started sharing grocery in bulk with some friends living close. It went well but coordinating in Facebook might not the best way.
+I also want to start sharing with people in the same buildings whom I am not close with yet.
 That's why I have the idea for this project. I hope to find some ways to make this process of sharing smoother.
 
 ## Thought process and choices
