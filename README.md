@@ -10,6 +10,7 @@ Price at local market especially at large open market is much more affordable bu
 In light of the problem, I started sharing grocery in bulk with some friends living close. It went well but coordinating in Facebook might not the best way.
 I also want to start sharing with people in the same buildings whom I am not close with yet.
 That's why I have the idea for this project. I hope to find some ways to make this process of sharing smoother.
+Even though, I know what I make probably is not gonna be used by anyone :joy:.
 
 ## Thought process and choices
 
