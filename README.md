@@ -12,6 +12,7 @@ I also want to start sharing with people in the same buildings whom I am not clo
 That's why I have the idea for this project. I hope to find some ways to make this process of sharing smoother.
 Even though, I know what I make probably is not gonna be used by anyone :joy:.
 
+
 ## Thought process and choices
 
 I knew I decided to use Django but a pure MPA in Django does not offer the modern, smooth, interactive web experience due to the constant reloading.
@@ -55,7 +56,7 @@ Example in the video:
 No one is probably going to run my project. But to run it, just clone and install requirements for django, geodjango, django-htmx, fontawesome, plotly. 
 Or use requirements.txt. 
 
-## Project structure
+## Project structure and features
 
 Standard django project structure 
 ```
@@ -68,6 +69,16 @@ Standard django project structure
 +-- polls: app for voting
 +-- posts: app for posting sharing, interacting with sharing posts, schedule
 ```
+
+Features: 
+
+- Basic authentication
+- Profile page  allows update on the fly without reloading
+- Geocommunity app: get current location or input address string to search communities within a distance and display on map with button to join
+- Polls app allows adding question with choices to group with permission checking, vote, update status, view result without reloading
+- Posts app allows posting item to share, tracking schedule of items that user host or share, participating or unparticipating a share item
+
+
 
 ## What I learnt and interesting problems
 Firstly, I understand a little more why combination of React for frontend and Django REST API for backend is wonderful and perfect for large applications with complex state and API calls to other services. On the other hand, HTMX and Alpine.js may be good for projects without difficult frontend. 
