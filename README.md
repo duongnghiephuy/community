@@ -28,8 +28,7 @@ Example in the video:
 
 - Javascript when necessary such as for fetching from Nominatim API for geo based app. 
 - Django typical testing for model, model methods, views
-- Small test for some Javascript
-- Test on the live web by hand for frontend since I'm just not sure what is approriate for htmx and alpine js. I am thinking to use cypress or selenium. Thanksfully, the project is still small enough to test frontend by hand.
+- Small test for Javascript
 - Native CSS with CSS Grid, CSS custom properties, CSS animations, media query for responsiveness
 
 ## Dependencies and installation steps
