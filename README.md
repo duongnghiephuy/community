@@ -70,7 +70,7 @@ Or use requirements.txt.
 +-- posts: app for posting sharing, interacting with sharing posts, schedule
 ```
 
-### Features: 
+### Features and Demo: 
 
 - Basic authentication
 - Profile page  allows update on the fly without reloading
