@@ -58,7 +58,7 @@ Or use requirements.txt.
 
 ## Project structure and features
 
-###Standard django project structure 
+### Standard django project structure 
 ```
 +-- accounts: app for authentication process, user, group
 +-- community: initial app contains home page and base template for the website
@@ -70,7 +70,7 @@ Or use requirements.txt.
 +-- posts: app for posting sharing, interacting with sharing posts, schedule
 ```
 
-###Features: 
+### Features: 
 
 - Basic authentication
 - Profile page  allows update on the fly without reloading
