@@ -58,7 +58,7 @@ Or use requirements.txt.
 
 ## Project structure and features
 
-Standard django project structure 
+###Standard django project structure 
 ```
 +-- accounts: app for authentication process, user, group
 +-- community: initial app contains home page and base template for the website
@@ -70,13 +70,18 @@ Standard django project structure
 +-- posts: app for posting sharing, interacting with sharing posts, schedule
 ```
 
-Features: 
+###Features: 
 
 - Basic authentication
 - Profile page  allows update on the fly without reloading
 - Geocommunity app: get current location or input address string to search communities within a distance and display on map with button to join
 - Polls app allows adding question with choices to group with permission checking, vote, update status, view result without reloading
 - Posts app allows posting item to share, tracking schedule of items that user host or share, participating or unparticipating a share item
+###Demo video:
+
+
+
+https://user-images.githubusercontent.com/55075721/166864587-a7093ac9-1437-4781-9ca9-931388893146.mp4
 
 
 
