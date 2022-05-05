@@ -9,6 +9,11 @@ aside.vote-side {
     margin-left: 3%;
 }
 
+aside li {
+    margin-left: 0;
+    padding-left: 0;
+}
+
 div.vote-extra {
     grid-area: extra;
     text-align: center;
@@ -48,4 +53,34 @@ ul.question-list {
 ul.question-list li.bubble-item {
     margin-top: 2.5rem;
     margin-bottom: 2.5rem;
+}
+
+.black-button {
+    margin-top: 1rem;
+}
+
+input,
+select,
+textarea {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 0.4rem;
+    margin-bottom: 0.4rem;
+    resize: vertical;
+}
+
+input[type=text],
+select,
+textarea {
+    width: 90%;
+}
+
+
+img.success-gif {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    height: auto;
 }

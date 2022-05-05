@@ -16,7 +16,7 @@
 
             {% csrf_token %}
 
-            {% for error in field.errors %}
+            {% for error in form.non_field_errors %}
             <p style="color: rgb(20, 19, 19)">{{ error }}</p>
             {% endfor %}
 

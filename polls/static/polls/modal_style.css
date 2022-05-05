@@ -1,0 +1,35 @@
+.modal {
+    z-index: 5;
+    background-color: white;
+    grid-area: modal;
+    padding: 5%;
+    border-radius: 4px;
+    overflow: auto;
+
+}
+
+@media (min-width:600px) {
+    .overlay {
+        grid-template-columns: 1fr 4fr 1fr;
+    }
+}
+
+.overlay {
+    z-index: 3;
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 1;
+    display: grid;
+    grid-template-columns: 0.5fr 4fr 0.5fr;
+    grid-template-areas:
+        ". . ."
+        ". modal ."
+        ". modal ."
+        ". modal ."
+        ". . ."
+    ;
+}

@@ -1,0 +1,58 @@
+.info {
+    grid-area: info;
+}
+
+.avatar {
+    grid-area: avatar;
+    text-align: center;
+}
+
+.profile {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "avatar"
+        "info";
+}
+
+
+@media screen and (min-width:600px) {
+    .profile {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        grid-template-areas:
+            "avatar info";
+    }
+
+}
+
+
+input,
+select,
+textarea {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 0.4rem;
+    margin-bottom: 0.4rem;
+    resize: vertical;
+}
+
+input[type=text],
+select,
+textarea {
+    width: 90%;
+}
+
+.avatar img {
+    width: 70%;
+    aspect-ratio: 1/1;
+}
+
+.user-img {
+    border-radius: 50%;
+}
+
+.black-button {
+    margin-bottom: 1rem;
+}

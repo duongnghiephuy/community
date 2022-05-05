@@ -1,0 +1,6 @@
+<li>
+    <label for="choice{{id}}" hidden="hidden">Choice {{id}}</label>
+    <input type="text" name="choice{{id}}" id="choice{{id}}" placeholder="Choice {{id}}">
+</li>
+<button type="button" class="green-button" value="add-choice" hx-get="{% url 'polls:addchoice' id=id %}">Add
+    Choice</button>

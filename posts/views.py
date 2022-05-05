@@ -7,13 +7,15 @@ from urllib3 import HTTPResponse
 from .forms import PostForm
 from .models import Order, Post
 from django.utils import timezone
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
 
-class NewPost(View):
+class NewPost(LoginRequiredMixin, View):
     def get(self, request):
-        form = PostForm(request.user)
+        form = PostForm(user=request.user)
         return render(request, "posts/post_form.html", {"form": form})
 
     def post(self, request):
@@ -36,7 +38,7 @@ class NewPost(View):
             return render(request, "posts/post_form.html", {"form": form})
 
 
-class PostListView(ListView):
+class PostListView(LoginRequiredMixin, ListView):
     model = Post
     template_name = "posts/index.html"
     paginate_by = 5
@@ -55,13 +57,19 @@ class PostListView(ListView):
         return context
 
 
-class UpdateOrder(View):
+class UpdateOrder(LoginRequiredMixin, View):
     def get(self, request, post_id):
         try:
             post_id = int(post_id)
         except ValueError:
             return HTTPResponse(status=404)
-        post = get_object_or_404(Post, pk=post_id)
+
+        try:
+            post = Post.objects.get(pk=post_id)
+
+        except Post.DoesNotExist:
+            return render(request, "community/invalid_request.html")
+
         if request.user in post.participants.all():
             Order.objects.get(post=post, participant=request.user).delete()
             return render(request, "posts/participate.html", {"post": post})
@@ -72,7 +80,7 @@ class UpdateOrder(View):
             return render(request, "community/invalid_request.html")
 
 
-class DeletePost(View):
+class DeletePost(LoginRequiredMixin, View):
     def delete(self, request, post_id):
         try:
             post_id = int(post_id)
@@ -86,7 +94,7 @@ class DeletePost(View):
             return render(request, "community/invalid_request.html")
 
 
-class AsynUpdatePost(View):
+class AsynUpdatePost(LoginRequiredMixin, View):
     def get(self, request):
         post = Post.objects.filter(
             order__participant=request.user, order__role=Order.HOST
@@ -94,7 +102,7 @@ class AsynUpdatePost(View):
         return render(request, "posts/asynpost.html", {"post": post})
 
 
-class ScheduleList(ListView):
+class ScheduleList(LoginRequiredMixin, ListView):
     model = Post
     template_name = "posts/schedule.html"
     paginate_by = 5
@@ -103,7 +111,7 @@ class ScheduleList(ListView):
         return Post.objects.filter(order__participant=self.request.user)
 
 
-class HostList(ListView):
+class HostList(LoginRequiredMixin, ListView):
     model = Post
     template_name = "posts/schedule_host.html"
     paginate_by = 1
@@ -114,7 +122,7 @@ class HostList(ListView):
         )
 
 
-class ShareList(ListView):
+class ShareList(LoginRequiredMixin, ListView):
     model = Post
     template_name = "posts/schedule_share.html"
     paginate_by = 5

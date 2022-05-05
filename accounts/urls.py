@@ -21,5 +21,5 @@ urlpatterns = [
     ),
     path("signup/", views.Signup.as_view(), name="signup"),
     path("newcommunity", views.CommunityCreate.as_view(), name="newcommunity"),
-    path("communityview", views.CommunityView.as_view(), name="community-view"),
+    path("profileview", views.UserProfileView.as_view(), name="profileview"),
 ]

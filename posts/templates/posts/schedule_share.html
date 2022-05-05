@@ -1,3 +1,4 @@
+<!-- Main info of page to share-->
 <section class="schedule-list">
     {% include "posts/schedule_list.html" %}
     <span class="step-links">
@@ -25,7 +26,7 @@
 </section>
 
 
-
+<!--  hw-swap-oob allows us to maintain the state of current to host page in link to to host as it only swaps the content and step-links in to share-->
 <a id='share-link' hx-get="{% url 'posts:toshare' %}?page={{page_obj.number}}" hx-trigger="click"
     hx-target=".schedule-list" hx-swap-oob="true">To
     Share</a>

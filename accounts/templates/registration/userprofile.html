@@ -1,0 +1,18 @@
+{% extends "community/base.html" %}
+
+{% load static%}
+
+{% block customstyle%}
+
+<link rel="stylesheet" href="{% static 'accounts/userprofile_style.css' %}">
+
+{% endblock customstyle %}
+
+{% block title %}Profile{% endblock %}
+{% block content%}
+
+{% include "registration/profileform.html" %}
+
+
+
+{% endblock content %}

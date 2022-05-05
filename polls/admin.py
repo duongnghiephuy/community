@@ -11,7 +11,6 @@ class ChoiceInline(admin.TabularInline):
 class QuestionAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {"fields": ["question_text"]}),
-        ("Date information", {"fields": ["pub_date"]}),
         ("Close this question", {"fields": ["closed"]}),
         ("Author", {"fields": ["author"]}),
         ("Community", {"fields": ["community"]}),

@@ -46,7 +46,7 @@ nav.main-nav a.nav-item {
     color: rgb(82, 78, 78);
 }
 
-@media (min-width:600px) {
+@media (min-width:750px) {
     .menu-icon {
         display: none;
     }

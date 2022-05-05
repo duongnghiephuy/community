@@ -4,6 +4,7 @@
 
 aside {
     grid-area: aside;
+    margin-right: 1.5rem;
 }
 
 .schedule {
@@ -55,4 +56,9 @@ a:hover {
 
 .step-links {
     margin-left: 10%;
+}
+
+.generic-button.participated {
+    background-color: #3699b8d5;
+    color: white;
 }

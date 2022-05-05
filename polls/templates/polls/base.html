@@ -5,6 +5,7 @@
 
 <link rel="stylesheet" href="{% static 'polls/base_style.css' %}">
 <script src="{% static 'polls/trivial.js' %}" defer></script>
+<script src="{% static 'posts/outmodal.js' %}" defer></script>
 {% endblock customstyle %}
 
 
@@ -20,6 +21,21 @@
     </section>
 
     <aside class="vote-side">
+        <div x-data="{'modalopen':false}" x-cloak>
+            <button class="black-button" type="button" @click="modalopen=true" hx-get="{% url 'polls:updatestatus' %}"
+                hx-swap="innerHTML" hx-target="#statusoverlay">Update Poll Status</button>
+            <div class="overlay" id="statusoverlay" x-show="modalopen">
+
+            </div>
+        </div>
+
+
+        <div x-data="{'modalopen':false}" x-cloak>
+            <button class="black-button" type="button" @click="modalopen=true">New Poll</button>
+            <div class="overlay" x-show="modalopen">
+                {% include "polls/create_question_form.html" %}
+            </div>
+        </div>
         <h3>In Vote of the month</h4>
             <ul>
                 <li> <a class="nav-item" href="{% url 'polls:question-list-view'%}"> Live Questions </a></li>
@@ -28,7 +44,7 @@
             </ul>
     </aside>
     <div class="vote-extra">
-        <h3> Most popular vote</h3>
+        <h3> Most popular</h3>
     </div>
 </div>
 {% endblock content %}

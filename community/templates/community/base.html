@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="{% static 'community/navbar.css' %}">
     <link rel="stylesheet" href="{% static 'community/utility.css' %}">
     <link rel="stylesheet" href="{% static 'community/footer.css' %}">
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/8/83/Eo_circle_blue_white_letter-c.svg"
+        type="image/svg+xml">
     {% block customstyle%} {% endblock customstyle %}
     <style>
         html,
@@ -33,7 +35,7 @@
 
 </head>
 
-<body>
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
     <header x-on:resize.window="open=(window.innerWidth<600)?false:true" x-data="{
             open:(window.innerWidth<600)?false:true,
             toggle(){
@@ -61,8 +63,9 @@
 
             <ul class="right-nav">
                 {%if request.user.is_authenticated%}
-                <li><a class="nav-item" href="{% url 'accounts:community-view' %}">Communities</a></li>
-                <li><a class="nav-item" href="#">Profile</a></li>
+                <li><a class="nav-item" href="{% url 'geocommunity:index-view' %}">Communities</a></li>
+                <li><a class="nav-item" href="{% url 'accounts:profileview' %}">Profile</a></li>
+                <li><a class="nav-item" href="{% url 'accounts:logout' %}">SignOut</a></li>
 
                 {% else %}
                 <li><a class="nav-item" href="{% url 'accounts:login'%}">Log In</a></li>
