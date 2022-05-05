@@ -23,11 +23,7 @@ I stumbled on HTMX and Alpine.js. After reading their tutorials and docs, I was 
 My approach:
 - htmx attributes sending requests to urls, views in Django which returns rendered HTML with template. That will be used for htmx swap. The interesting thing is that htmx attributes having the philosophy of being html extension plays well with Django template language. It means not only the initial HTML but the rendered HTML from Django view can contain further htmx.
 - Alpine js will do some simple tasks such as dropdown, modal, responsive nav bar. It was cool that I can combine htmx and alpine. 
-
-Example in the video:
-
-
-- Javascript when necessary such as for fetching from Nominatim API for geo based app. 
+- Javascript when necessary such as for fetching from Nominatim API for geo based app or dispatching custom event for htmx
 - Django typical testing for model, model methods, views
 - Small test for Javascript
 - Native CSS with CSS Grid, CSS custom properties, CSS animations, media query for responsiveness
