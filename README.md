@@ -74,7 +74,7 @@ Or use requirements.txt.
 
 - Basic authentication
 - Profile page  allows update on the fly without reloading
-- Geocommunity app: get current location or input address string to search communities within a distance and display on map with button to join
+- Geocommunity app: get current location or input address string to search communities within a distance and display on map with button to join (using leaflet, geodjango)
 - Polls app allows adding question with choices to group with permission checking, vote, update status, view result without reloading
 - Posts app allows posting item to share, tracking schedule of items that user host or share, participating or unparticipating a share item
 ###Demo video:
