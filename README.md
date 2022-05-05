@@ -81,7 +81,7 @@ Features:
 
 
 ## What I learnt and interesting problems
-Firstly, I understand a little more why combination of React for frontend and Django REST API for backend is wonderful and perfect for large applications with complex state and API calls to other services. On the other hand, HTMX and Alpine.js may be good for projects without difficult frontend. 
+Firstly, I understand a little more why combination of React for frontend and Django REST API for backend is wonderful for large applications with complex state and API calls to other services. On the other hand, HTMX and Alpine.js may be good for projects without difficult frontend. 
 
 One interesting thing to note is that because of htmx's nature, I can organize some components in Django HTML template and employ 
 `{% include "app/example.html" %}` to reuse them in several other template pages. 
