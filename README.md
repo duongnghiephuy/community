@@ -92,7 +92,13 @@ I also learnt more and practiced to make good modular OOP Javascript code. I lea
 
 I was able to deepen my knowledge in Django, basic of how Django REST use Json reponse to work with frontend framework, appreciate how convenient this approach is.
 
-- One interesting problem was overlapping markers at the same coordinates on leaflet map. They will only show one pop up and 1 marker. I think using some libraries and further customization will be better, howeve, I made a quick, hacky solution using marker rotation since I want individual pop up for each marker not cluster marker. It is currently only good for a few overlapping markers. Problem is that pop up is not rotated with marker.
+Looking back, I think I should spend more time extracting and organizing the html template.
+
+CSS also grew, making it difficult to manage. I think I understand why Tailwind may be a good solution. 
+
+Interesting problems:
+
+- One was overlapping markers at the same coordinates on leaflet map. They will only show one pop up and 1 marker. I think using some libraries and further customization will be better, howeve, I made a quick, hacky solution using marker rotation since I want individual pop up for each marker not cluster marker. It is currently only good for a few overlapping markers. Problem is that pop up is not rotated with marker.
 
 - Another is that preserving state such as pagination page is not so easy with htmx since htmx-preserve is not sufficient. My solution is using htmx-swap-oob, smaller templates, and include.   
 
