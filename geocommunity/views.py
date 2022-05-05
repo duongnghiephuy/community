@@ -8,16 +8,19 @@ from accounts.forms import CommunityCreationForm
 from django.http import JsonResponse, HttpResponse
 from django.contrib.gis.measure import D
 from django.core.serializers import serialize
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
 
-class CommunitiesView(View):
+class CommunitiesView(LoginRequiredMixin, View):
     def get(self, request):
         form = CommunityCreationForm()
         return render(request, "geocommunity/index.html", {"form": form})
 
 
+@login_required()
 def search_nearby(request, lat, long, distance):
 
     try:

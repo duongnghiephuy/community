@@ -17,9 +17,11 @@ from polls.result_graph import result_graph
 from .models import Question, Choice, Vote
 from .result_graph import result_graph
 from .forms import CreateQuestionForm, UpdateQuestionStatusForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-class IndexView(TemplateView):
+class IndexView(LoginRequiredMixin, TemplateView):
     template_name = "polls/index.html"
 
     def get_recent_live_questions(self, request):
@@ -55,7 +57,7 @@ class IndexView(TemplateView):
         return render(request, "polls/index.html", context=context)
 
 
-class QuestionListView(ListView):
+class QuestionListView(LoginRequiredMixin, ListView):
     context_object_name = "question_list"
     paginate_by = 5
     template_name = "polls/question_list.html"
@@ -72,7 +74,7 @@ class QuestionListView(ListView):
         return context
 
 
-class ResultListView(ListView):
+class ResultListView(LoginRequiredMixin, ListView):
     paginate_by = 5
     context_object_name = "question_list"
     template_name = "polls/result_list.html"
@@ -90,7 +92,7 @@ class ResultListView(ListView):
         return context
 
 
-class QuestionDetailView(DetailView):
+class QuestionDetailView(LoginRequiredMixin, DetailView):
     model = Question
     template_name = "polls/question_detail.html"
 
@@ -104,7 +106,7 @@ class QuestionDetailView(DetailView):
         return context
 
 
-class QuestionModalView(DetailView):
+class QuestionModalView(LoginRequiredMixin, DetailView):
     model = Question
     template_name = "polls/question_detail_modal.html"
 
@@ -112,7 +114,7 @@ class QuestionModalView(DetailView):
         return Question.objects.filter(pub_date__lte=timezone.now())
 
 
-class ResultDetailView(View):
+class ResultDetailView(LoginRequiredMixin, View):
     def get(self, request, question_id):
         question = get_object_or_404(Question, pk=question_id)
         result_plot = result_graph(question)
@@ -126,7 +128,7 @@ class ResultDetailView(View):
         return context
 
 
-class ResultModalView(View):
+class ResultModalView(LoginRequiredMixin, View):
     def get(self, request, pk):
         question = get_object_or_404(Question, pk=pk)
         result_plot = result_graph(question)
@@ -141,6 +143,7 @@ class ResultModalView(View):
         return render(request, "polls/result_detail_modal.html", context=context)
 
 
+@login_required()
 def votemodal(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     if question.closed:
@@ -190,7 +193,7 @@ def votemodal(request, question_id):
             )
 
 
-class CreateQuestion(View):
+class CreateQuestion(LoginRequiredMixin.View):
     def get(self, request):
         form = CreateQuestionForm(user=request.user)
         return render(request, "polls/create_question_form.html", {"form": form})
@@ -228,7 +231,7 @@ def add_choice(request, id):
     return render(request, "polls/choice.html", {"id": id + 1})
 
 
-class UpdateQuestionStatus(View):
+class UpdateQuestionStatus(LoginRequiredMixin, View):
     def get(self, request):
         form = UpdateQuestionStatusForm(request.user)
         return render(request, "polls/update_question_status_form.html", {"form": form})

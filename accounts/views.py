@@ -8,6 +8,8 @@ from .forms import CommunityCreationForm, UserProfileForm
 from .models import Community, MemberRole, UserProfile
 from django.contrib.gis.geos import Point
 from geopy.geocoders import Nominatim
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -40,7 +42,7 @@ def geocode_address(address):
     return location
 
 
-class CommunityCreate(View):
+class CommunityCreate(LoginRequiredMixin, View):
     def post(self, request):
 
         error_message = None
@@ -87,7 +89,7 @@ class CommunityCreate(View):
         return render(request, "registration/new_community_form.html", {"form": form})
 
 
-class UserProfileView(View):
+class UserProfileView(LoginRequiredMixin, View):
     def get(self, request):
         if UserProfile.objects.filter(user=request.user).exists():
             form = UserProfileForm(instance=request.user.userprofile)
