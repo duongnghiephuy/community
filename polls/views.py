@@ -193,7 +193,7 @@ def votemodal(request, question_id):
             )
 
 
-class CreateQuestion(LoginRequiredMixin.View):
+class CreateQuestion(LoginRequiredMixin, View):
     def get(self, request):
         form = CreateQuestionForm(user=request.user)
         return render(request, "polls/create_question_form.html", {"form": form})

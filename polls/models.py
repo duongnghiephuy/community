@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.contrib.gis.db import models
+from wasmtime import Instance
 
 from accounts.models import Community
 
@@ -30,10 +31,7 @@ class Question(models.Model):
         return False
 
     def is_voter(self, user):
-        if (
-            self.is_author(user)
-            or user.community_set.filter(name=self.community).exists()
-        ):
+        if self.is_author(user) or self.community.users.filter(pk=user.pk):
             return True
         return False
 
