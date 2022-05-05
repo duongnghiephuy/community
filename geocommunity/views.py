@@ -29,9 +29,7 @@ def search_nearby(request, lat, long, distance):
     except ValueError:
         return HttpResponse(status=404)
     point = Point(longtitude, latitude)
-    print(point.coords)
-    print(distance)
-    print(Community.objects.filter(location__distance_lte=(point, D(km=distance))))
+
     search_res = serialize(
         "geojson",
         Community.objects.filter(location__distance_lte=(point, D(km=distance))),
