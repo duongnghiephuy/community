@@ -28,7 +28,7 @@ Example in the video:
 
 
 - Javascript when necessary such as for fetching from Nominatim API for geo based app. 
-- Django typical testing for model, model methods, views
+- Django test framework: eg [a relative link](posts/tests.py)
 - Small test for Javascript
 - Native CSS with CSS Grid, CSS custom properties, CSS animations, media query for responsiveness
 
